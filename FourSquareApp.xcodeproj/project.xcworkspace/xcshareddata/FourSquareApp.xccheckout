@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>215E01B2-A105-4D5D-85F7-1FE9C2E7DCC7</string>
+	<key>IDESourceControlProjectName</key>
+	<string>FourSquareApp</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D61C2082-6E84-4FD8-979E-44F8CFA14C57</key>
+		<string>https://github.com/savithareddy/FourSquareTeam.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>FourSquareApp.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D61C2082-6E84-4FD8-979E-44F8CFA14C57</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/savithareddy/FourSquareTeam.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D61C2082-6E84-4FD8-979E-44F8CFA14C57</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D61C2082-6E84-4FD8-979E-44F8CFA14C57</string>
+			<key>IDESourceControlWCCName</key>
+			<string>FourSquareTeam</string>
+		</dict>
+	</array>
+</dict>
+</plist>

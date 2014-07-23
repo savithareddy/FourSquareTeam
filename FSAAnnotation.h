@@ -7,7 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 
-@interface FSAAnnotation : NSObject
+@interface FSAAnnotation : NSObject <MKAnnotation>
+
+@property (nonatomic,readonly) CLLocationCoordinate2D coordinate;
+
+@property (nonatomic,readonly,copy) NSString *title;
+
+@property (nonatomic,readonly,copy) NSString *subtitle;
+
+-(id) initWithCoordinate:(CLLocationCoordinate2D) coordinate;
+
+-(void) setCoordinate:(CLLocationCoordinate2D)newCoordinate;
+
+-(void) setTitle:(NSString *)title;
+
+-(void) setSubtitle:(NSString *)subtitle;
+
 
 @end
