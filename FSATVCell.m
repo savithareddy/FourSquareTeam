@@ -12,8 +12,8 @@
 {
     UIImageView *venueImage;
     UILabel *venueName;
+    UILabel *venuePlace;
     UILabel *venuePhone;
-    UILabel *venueTiming;
     UILabel *venueDistance;
 }
 
@@ -27,24 +27,25 @@
         venueImage.clipsToBounds = YES;
         [self.contentView addSubview:venueImage];
         
-        venueName = [[UILabel alloc] initWithFrame:CGRectMake(65, 10, 150, 15)];
-        [venueName setFont:[UIFont fontWithName:@"Chalkduster" size:18]];
+        venueName = [[UILabel alloc] initWithFrame:CGRectMake(65, 10, 200, 15)];
+        [venueName setFont:[UIFont fontWithName:@"Seravek" size:18]];
         venueName.textColor = [UIColor blueColor];
         [self.contentView addSubview:venueName];
         
-        venuePhone = [[UILabel alloc] initWithFrame:CGRectMake(65, 30, 150, 10)];
-        [venuePhone setFont:[UIFont fontWithName:@"Chalkduster" size:12]];
-        [self.contentView addSubview:venuePhone];
+        venuePlace = [[UILabel alloc] initWithFrame:CGRectMake(65, 30, 150, 12)];
+        [venuePlace setFont:[UIFont fontWithName:@"Arial" size:12.0f]];
+//        venuePlace.adjustsFontSizeToFitWidth=YES;
+        [self.contentView addSubview:venuePlace];
         
-        venueTiming = [[UILabel alloc] initWithFrame:CGRectMake(65, 50, 150, 10)];
-        [venueTiming setFont:[UIFont fontWithName:@"Chalkduster" size:8]];
-        [self.contentView addSubview:venueTiming];
+        venuePhone = [[UILabel alloc] initWithFrame:CGRectMake(65, 52, 150, 10)];
+        [venuePhone setFont:[UIFont fontWithName:@"Arial" size:10]];
+        [self.contentView addSubview:venuePhone];
         
         venueDistance = [[UILabel alloc] initWithFrame:CGRectMake(260, 10, 50, 50)];
         venueDistance.backgroundColor = [UIColor lightGrayColor];
         venueDistance.layer.cornerRadius = 25;
         venueDistance.clipsToBounds = YES;
-        [venueDistance setFont:[UIFont fontWithName:@"Chalkduster" size:12]];
+        [venueDistance setFont:[UIFont fontWithName:@"Seravek" size:10]];
         venueDistance.textColor = [UIColor blueColor];
        [self.contentView addSubview:venueDistance];
     }
@@ -54,11 +55,17 @@
 -(void) setInfo:(NSDictionary *)info
 {
     _info = info;
-    venueImage.image = info[@"image"];
+    NSURL *url = [NSURL URLWithString:info[@"image"]];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    UIImage *image = [UIImage imageWithData:data];
+    venueImage.image = image;
     venueName.text = info[@"name"];
+    venuePlace.text = info[@"place"];
     venuePhone.text = info[@"phone"];
-    venueTiming.text = info[@"timing"];
-    venueDistance.text = info[@"distance"];
+//   NSUInteger intDist = (int)info[@"distance"];
+//    NSLog(@" distance is %d",(int)intDist);
+//   venueDistance.text = [NSString stringWithFormat:@ "%d",(int) info[@"distance"]];
+//    venueDistance.text =[ @((int)info[@"distance"]) stringValue];
 }
 
 - (void)awakeFromNib

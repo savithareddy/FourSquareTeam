@@ -9,6 +9,7 @@
 #import "FSATableVC.h"
 #import "FSATVCell.h"
 #import "FSAMapVC.h"
+#import "TAPFourSquareRequests.h"
 
 @interface FSATableVC ()
 
@@ -16,7 +17,7 @@
 
 @implementation FSATableVC
 {
-    NSMutableArray *itemsInfo;
+    NSArray *itemsInfo;
     
 }
 
@@ -32,32 +33,34 @@
         [headerTitle setFont:[UIFont fontWithName:@"Chalkduster" size:25]];
         self.navigationItem.titleView = headerTitle;
         
-        itemsInfo = [@[@{@"image":[UIImage imageNamed:@"venue.jpeg"],
-                         @"name":@"HollyWood",
-                         @"phone":@"111-222-3456",
-                         @"timing":@"8:00 AM to 6:00 PM",
-                         @"distance":@"0.9 mi" },
-                       @{@"image":[UIImage imageNamed:@"venue.jpeg"],
-                        @"name":@"HollyWood",
-                        @"phone":@"111-222-3456",
-                        @"timing":@"8:00 AM to 6:00 PM",
-                        @"distance":@"0.9 mi" },
-                       @{@"image":[UIImage imageNamed:@"venue.jpeg"],
-                        @"name":@"HollyWood",
-                        @"phone":@"111-222-3456",
-                        @"timing":@"8:00 AM to 6:00 PM",
-                        @"distance":@"0.9 mi" },
-                       @{@"image":[UIImage imageNamed:@"venue.jpeg"],
-                        @"name":@"HollyWood",
-                        @"phone":@"111-222-3456",
-                        @"timing":@"8:00 AM to 6:00 PM",
-                        @"distance":@"0.9 mi" },
-                       @{@"image":[UIImage imageNamed:@"venue.jpeg"],
-                        @"name":@"HollyWood",
-                        @"phone":@"111-222-3456",
-                        @"timing":@"8:00 AM to 6:00 PM",
-                        @"distance":@"0.9 mi" }
-                        ]mutableCopy];
+        itemsInfo = [TAPFourSquareRequests getPhotosWithVenues];
+        NSLog(@"TableVc items are %@",itemsInfo);
+//        itemsInfo = [@[@{@"image":[UIImage imageNamed:@"venue.jpeg"],
+//                         @"name":@"HollyWood",
+//                         @"phone":@"111-222-3456",
+//                         @"timing":@"8:00 AM to 6:00 PM",
+//                         @"distance":@"0.9 mi" },
+//                       @{@"image":[UIImage imageNamed:@"venue.jpeg"],
+//                        @"name":@"HollyWood",
+//                        @"phone":@"111-222-3456",
+//                        @"timing":@"8:00 AM to 6:00 PM",
+//                        @"distance":@"0.9 mi" },
+//                       @{@"image":[UIImage imageNamed:@"venue.jpeg"],
+//                        @"name":@"HollyWood",
+//                        @"phone":@"111-222-3456",
+//                        @"timing":@"8:00 AM to 6:00 PM",
+//                        @"distance":@"0.9 mi" },
+//                       @{@"image":[UIImage imageNamed:@"venue.jpeg"],
+//                        @"name":@"HollyWood",
+//                        @"phone":@"111-222-3456",
+//                        @"timing":@"8:00 AM to 6:00 PM",
+//                        @"distance":@"0.9 mi" },
+//                       @{@"image":[UIImage imageNamed:@"venue.jpeg"],
+//                        @"name":@"HollyWood",
+//                        @"phone":@"111-222-3456",
+//                        @"timing":@"8:00 AM to 6:00 PM",
+//                        @"distance":@"0.9 mi" }
+//                        ]mutableCopy];
         
     }
     return self;
@@ -77,6 +80,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSLog(@"items count is %d",(int)[itemsInfo count]);
     return [itemsInfo count];
 }
 

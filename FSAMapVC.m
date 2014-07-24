@@ -10,6 +10,7 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "FSAAnnotation.h"
+#import "TAPFourSquareRequests.h"
 
 @interface FSAMapVC () <MKMapViewDelegate,CLLocationManagerDelegate>
 
@@ -21,6 +22,8 @@
     MKMapView *mapView;
     FSAAnnotation *annotation;
     CLLocation *currentLocation;
+    NSMutableArray *distanceArray;
+    CLLocation *eventLocation;
     
 }
 
@@ -33,6 +36,7 @@
         [lManager startUpdatingLocation];
         UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(goToTable)];
         self.navigationItem.leftBarButtonItem = back;
+        distanceArray = [TAPFourSquareRequests getPhotosWithVenues];
     }
     return self;
 }
@@ -41,6 +45,14 @@
 {
 //    [mapView removeAnnotations:mapView.annotations];
     currentLocation = [locations firstObject];
+    NSNumber *latitude = [distanceArray valueForKey:@"latitude"];
+    NSNumber *longitude =[distanceArray valueForKey:@"longitude"];
+    NSLog(@"lat and long are %@,%@",latitude,longitude);
+    CLLocationCoordinate2D coord;
+    coord.latitude = latitude.floatValue;
+    coord.longitude = longitude.floatValue;
+    eventLocation = [[CLLocation alloc] initWithLatitude:coord.latitude longitude:coord.longitude];
+    NSLog(@"event location coordinates are %f",eventLocation.coordinate);
    [lManager stopUpdatingLocation];
 //    for (CLLocation *location in locations) {
 //       annotation = [[FSAAnnotation alloc] initWithCoordinate:currentLocation.coordinate];
@@ -53,8 +65,14 @@
     
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
     point.coordinate = currentLocation.coordinate;
-    
     [mapView addAnnotation:point];
+    
+//    MKCoordinateRegion region2 = MKCoordinateRegionMake(eventLocation.coord, MKCoordinateSpanMake(1.0, 1.0));
+//    [mapView setRegion:region2 animated:YES];
+    
+    MKPointAnnotation *pointMany = [[MKPointAnnotation alloc] init];
+    pointMany.coordinate = eventLocation.coordinate;
+    [mapView addAnnotation:pointMany];
 
     
         CLGeocoder *coder = [[CLGeocoder alloc] init];
@@ -70,8 +88,12 @@
             [point setSubtitle :placemark.addressDictionary[@"State"]];
 //            }
         }];
+    
+    CLLocationDistance distance = [currentLocation distanceFromLocation:eventLocation];
 //    }
 }
+
+
 
 //- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id)annotation {
 //    //7
