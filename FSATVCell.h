@@ -7,9 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface FSATVCell : UITableViewCell
+//@protocol FSATVCellDelegate;
+
+@interface FSATVCell : UITableViewCell <CLLocationManagerDelegate>
 
 @property (nonatomic) NSDictionary *info;
+
+//@property (nonatomic,assign) id<FSATVCellDelegate> delegate;
+
+@property (nonatomic) UILabel *venueDistance;
 
 @end

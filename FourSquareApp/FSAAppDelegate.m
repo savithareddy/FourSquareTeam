@@ -10,21 +10,26 @@
 #import "FSATableVC.h"
 #import "TAPFourSquareRequests.h"
 
-@implementation FSAAppDelegate
+
+@implementation FSAAppDelegate 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    
     FSATableVC *tableVC = [[FSATableVC alloc] initWithStyle:UITableViewStylePlain];
     UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:tableVC];
    
     self.window.rootViewController = nc;
 //     [TAPFourSquareRequests getPhotosWithVenues];
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
 }
+
 
 
 

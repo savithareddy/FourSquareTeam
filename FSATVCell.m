@@ -7,6 +7,9 @@
 //
 
 #import "FSATVCell.h"
+#import "STASingleton.h"
+#import "TAPFourSquareRequests.h"
+
 
 @implementation FSATVCell
 {
@@ -14,7 +17,10 @@
     UILabel *venueName;
     UILabel *venuePlace;
     UILabel *venuePhone;
-    UILabel *venueDistance;
+//    UILabel *venueDistance;
+    NSArray *latLong;
+    CLLocation *currentLocation;
+    CLLocation *eventLocation;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -41,13 +47,23 @@
         [venuePhone setFont:[UIFont fontWithName:@"Arial" size:10]];
         [self.contentView addSubview:venuePhone];
         
-        venueDistance = [[UILabel alloc] initWithFrame:CGRectMake(260, 10, 50, 50)];
-        venueDistance.backgroundColor = [UIColor lightGrayColor];
-        venueDistance.layer.cornerRadius = 25;
-        venueDistance.clipsToBounds = YES;
-        [venueDistance setFont:[UIFont fontWithName:@"Seravek" size:10]];
-        venueDistance.textColor = [UIColor blueColor];
-       [self.contentView addSubview:venueDistance];
+        self.venueDistance = [[UILabel alloc] initWithFrame:CGRectMake(260, 10, 50, 50)];
+        self.venueDistance.backgroundColor = [UIColor lightGrayColor];
+        self.venueDistance.layer.cornerRadius = 25;
+        self.venueDistance.clipsToBounds = YES;
+        [self.venueDistance setFont:[UIFont fontWithName:@"Seravek" size:10]];
+        self.venueDistance.textColor = [UIColor blueColor];
+//        NSLog(@"Singleton distance is %d",(int)[STASingleton mainSingleton].distanceSingleton);
+//        venueDistance.text = [NSString stringWithFormat:@"%d",(int)[STASingleton mainSingleton].distanceSingleton];
+       [self.contentView addSubview:self.venueDistance];
+        
+//        latLong = [TAPFourSquareRequests getPhotosWithVenues];
+//        NSNumber *lat = [latLong valueForKey:@"latitude"];
+//         NSNumber *longi = [latLong valueForKey:@"longitude"];
+//        NSLog(@"latLong are %lf,%lf",lat,longi);
+//        
+//        CLLocationDistance distance = [currentLocation distanceFromLocation:eventLocation];
+//        NSLog(@"distance is %lf",distance/1000);
     }
     return self;
 }
@@ -65,8 +81,18 @@
 //   NSUInteger intDist = (int)info[@"distance"];
 //    NSLog(@" distance is %d",(int)intDist);
 //   venueDistance.text = [NSString stringWithFormat:@ "%d",(int) info[@"distance"]];
-//    venueDistance.text =[ @((int)info[@"distance"]) stringValue];
+//    self.venueDistance.text =[ @((int)info[@"distance"]) stringValue];
+//    self.venueDistance.text = [NSString stringWithFormat:@"%d",(int)[STASingleton mainSingleton].distanceSingleton];
+    CLLocationDegrees lat =  [[info objectForKey:@"latitude"] doubleValue];
+    CLLocationDegrees longi =  [[info objectForKey:@"longitude"] doubleValue];
+    eventLocation = [[CLLocation alloc] initWithLatitude:lat longitude:longi];
+    CLLocationDistance distance = [currentLocation distanceFromLocation:eventLocation];
+//            NSLog(@"distance is %lf",distance/1000);
+    self.venueDistance.text = [NSString stringWithFormat:@"%d",(int)distance];
+
 }
+
+
 
 - (void)awakeFromNib
 {

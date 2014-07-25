@@ -10,8 +10,10 @@
 #import "FSATVCell.h"
 #import "FSAMapVC.h"
 #import "TAPFourSquareRequests.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface FSATableVC ()
+
+@interface FSATableVC () <CLLocationManagerDelegate>
 
 @end
 
@@ -34,7 +36,7 @@
         self.navigationItem.titleView = headerTitle;
         
         itemsInfo = [TAPFourSquareRequests getPhotosWithVenues];
-        NSLog(@"TableVc items are %@",itemsInfo);
+//        NSLog(@"TableVc items are %@",itemsInfo);
 //        itemsInfo = [@[@{@"image":[UIImage imageNamed:@"venue.jpeg"],
 //                         @"name":@"HollyWood",
 //                         @"phone":@"111-222-3456",
@@ -69,8 +71,34 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+//    [NSThread detachNewThreadSelector:@selector(fetch) toTarget:self withObject:nil];
+    CLLocationManager *lmanager = [[CLLocationManager alloc] init];
+    lmanager.delegate =self;
+    NSLog(@"current location");
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+    [lmanager startUpdatingLocation];
+
+  });
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation:) name:@"newNotification" object:nil];
+}
+
+-(void) fetch
+{
     
 }
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    CLLocation *currentLocation = [locations firstObject];
+    NSLog(@"current location is %@",currentLocation);
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"newNotification" object:self userInfo:[NSDictionary dictionaryWithObject:currentLocation forKey:@"newLocationResult"]];
+}
+
+//-(void) updateLocation : (NSNotification *) notify
+//{
+//    CLLocation *currentLocation = (CLLocation *)[ [notify userInfo] valueForKey:@"newLocationResult"];
+//}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -80,7 +108,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"items count is %d",(int)[itemsInfo count]);
+//    NSLog(@"items count is %d",(int)[itemsInfo count]);
     return [itemsInfo count];
 }
 

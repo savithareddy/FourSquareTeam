@@ -31,8 +31,8 @@
 //        [photos addObject:joinString];
         
         NSString *name = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"name"];
-        NSString *placeLat = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"lat"];
-        NSString *placeLong = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"lng"];
+        NSNumber *placeLat = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"lat"];
+        NSNumber *placeLong = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"lng"];
         NSString *placeCity = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"city"];
         NSString *placeState= fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"state"];
         NSString *placeSecond =[NSString stringWithFormat:@"%@ , %@",placeCity,placeState];
@@ -51,7 +51,7 @@
         [dict setObject:placeLat forKey:@"latitude"];
         [dict setObject:placeLong forKey:@"longitude"];
         [photos addObject:dict];
-        NSLog(@"Dictionary is %@",dict);
+//        NSLog(@"Dictionary is %@",dict);
         }
 //    NSLog(@" photos %@",photos);
     return photos;
