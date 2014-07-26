@@ -47,11 +47,11 @@
         [venuePhone setFont:[UIFont fontWithName:@"Arial" size:10]];
         [self.contentView addSubview:venuePhone];
         
-        self.venueDistance = [[UILabel alloc] initWithFrame:CGRectMake(260, 10, 50, 50)];
-        self.venueDistance.backgroundColor = [UIColor lightGrayColor];
-        self.venueDistance.layer.cornerRadius = 25;
-        self.venueDistance.clipsToBounds = YES;
-        [self.venueDistance setFont:[UIFont fontWithName:@"Seravek" size:10]];
+        self.venueDistance = [[UILabel alloc] initWithFrame:CGRectMake(260, 10, 80, 50)];
+//        self.venueDistance.backgroundColor = [UIColor lightGrayColor];
+//        self.venueDistance.layer.cornerRadius = 25;
+//        self.venueDistance.clipsToBounds = YES;
+        [self.venueDistance setFont:[UIFont fontWithName:@"Arial" size:10]];
         self.venueDistance.textColor = [UIColor blueColor];
 //        NSLog(@"Singleton distance is %d",(int)[STASingleton mainSingleton].distanceSingleton);
 //        venueDistance.text = [NSString stringWithFormat:@"%d",(int)[STASingleton mainSingleton].distanceSingleton];
@@ -61,11 +61,20 @@
 //        NSNumber *lat = [latLong valueForKey:@"latitude"];
 //         NSNumber *longi = [latLong valueForKey:@"longitude"];
 //        NSLog(@"latLong are %lf,%lf",lat,longi);
-//        
+//
+         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation:) name:@"newNotification" object:nil];
 //        CLLocationDistance distance = [currentLocation distanceFromLocation:eventLocation];
 //        NSLog(@"distance is %lf",distance/1000);
     }
     return self;
+}
+-(void) updateLocation : (NSNotification *) notify
+{
+    
+    currentLocation = (CLLocation *)[ [notify userInfo] valueForKey:@"newLocationResult"];
+    
+    NSLog(@"current location  in cell  is %lf,%lf",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
+
 }
 
 -(void) setInfo:(NSDictionary *)info
@@ -86,12 +95,20 @@
     CLLocationDegrees lat =  [[info objectForKey:@"latitude"] doubleValue];
     CLLocationDegrees longi =  [[info objectForKey:@"longitude"] doubleValue];
     eventLocation = [[CLLocation alloc] initWithLatitude:lat longitude:longi];
-    CLLocationDistance distance = [currentLocation distanceFromLocation:eventLocation];
-//            NSLog(@"distance is %lf",distance/1000);
-    self.venueDistance.text = [NSString stringWithFormat:@"%d",(int)distance];
+    NSLog(@"event location  in cell is %lf,%lf",eventLocation.coordinate.latitude,eventLocation.coordinate.longitude);
+
+   
+   
+    //        NSLog(@"distance is %lf",distance/1000);
 
 }
 
+-(void)layoutSubviews
+{
+    CLLocationDistance distance = [currentLocation distanceFromLocation:eventLocation]* 0.000621371;
+    NSLog(@"distance is %f",distance);
+    self.venueDistance.text = [NSString stringWithFormat:@"%.2f mi",distance+130];
+}
 
 
 - (void)awakeFromNib

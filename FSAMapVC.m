@@ -46,17 +46,17 @@
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
 //    [mapView removeAnnotations:mapView.annotations];
-    currentLocation = [locations firstObject];
-    NSNumber *latitude = [distanceArray valueForKey:@"latitude"];
-    NSNumber *longitude =[distanceArray valueForKey:@"longitude"];
+//    currentLocation = [locations firstObject];
+//    NSNumber *latitude = [distanceArray valueForKey:@"latitude"];
+//    NSNumber *longitude =[distanceArray valueForKey:@"longitude"];
 //    NSLog(@"lat and long are %@,%@",latitude,longitude);
     
-    CLLocationCoordinate2D coord;
+//    CLLocationCoordinate2D coord;
 //    coord.latitude = latitude.floatValue;
-    coord.latitude = 40;
-    coord.longitude = -77;
+//    coord.latitude = 40;
+//    coord.longitude = -77;
 //    coord.longitude = longitude.floatValue;
-    eventLocation = [[CLLocation alloc] initWithLatitude:coord.latitude longitude:coord.longitude];
+//    eventLocation = [[CLLocation alloc] initWithLatitude:coord.latitude longitude:coord.longitude];
 //    NSLog(@"event location coordinates are %d",eventLocation.coordinate);
    [lManager stopUpdatingLocation];
 //    for (CLLocation *location in locations) {
@@ -195,15 +195,12 @@
     tap.numberOfTouchesRequired = 1;
     [mapView addGestureRecognizer:tap];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation:) name:@"newNotification" object:nil];
+   
     
     
 }
 
--(void) updateLocation : (NSNotification *) notify
-{
-    currentLocation = (CLLocation *)[ [notify userInfo] valueForKey:@"newLocationResult"];
-}
+
 
 -(void) foundTap:(UITapGestureRecognizer *) tap
 {

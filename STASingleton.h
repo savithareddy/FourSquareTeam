@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface STASingleton : NSObject
 
 + (STASingleton *) mainSingleton;
@@ -15,6 +16,7 @@
 @property (nonatomic) NSInteger distanceSingleton;
 //@property (nonatomic) NSInteger colorRed;
 //@property (nonatomic) NSInteger detailColor;
+
 
 
 @end

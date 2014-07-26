@@ -20,6 +20,7 @@
 @implementation FSATableVC
 {
     NSArray *itemsInfo;
+    CLLocationManager *lmanager;
     
 }
 
@@ -72,13 +73,19 @@
 {
     [super viewDidLoad];
 //    [NSThread detachNewThreadSelector:@selector(fetch) toTarget:self withObject:nil];
-    CLLocationManager *lmanager = [[CLLocationManager alloc] init];
+    lmanager = [[CLLocationManager alloc] init];
     lmanager.delegate =self;
+    
+    lmanager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+//    lmanager.distanceFilter = kCLDistanceFilterNone;
+    [lmanager setDistanceFilter:100];
     NSLog(@"current location");
-  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+//  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
     [lmanager startUpdatingLocation];
+//   [lmanager startMonitoringSignificantLocationChanges];
+   
 
-  });
+//  });
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation:) name:@"newNotification" object:nil];
 }
 
@@ -89,10 +96,13 @@
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    CLLocation *currentLocation = [locations firstObject];
-    NSLog(@"current location is %@",currentLocation);
+    
+    CLLocation *currentLocation = [locations lastObject];
+    NSLog(@"current location is %lf,%lf",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNotification" object:self userInfo:[NSDictionary dictionaryWithObject:currentLocation forKey:@"newLocationResult"]];
-}
+
+    [lmanager stopUpdatingLocation];
+    }
 
 //-(void) updateLocation : (NSNotification *) notify
 //{
@@ -121,6 +131,9 @@
         cell = [[FSATVCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
     cell.info = itemsInfo[indexPath.row];
+    
+//    double lati = [itemsInfo objectAtIndex:<#(NSUInteger)#>
+    
     return cell;
 }
 

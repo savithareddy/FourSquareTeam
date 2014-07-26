@@ -19,4 +19,5 @@
 
 @property (nonatomic) UILabel *venueDistance;
 
+
 @end
