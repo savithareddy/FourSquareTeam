@@ -107,7 +107,7 @@
 {
     CLLocationDistance distance = [currentLocation distanceFromLocation:eventLocation]* 0.000621371;
     NSLog(@"distance is %f",distance);
-    self.venueDistance.text = [NSString stringWithFormat:@"%.2f mi",distance+130];
+    self.venueDistance.text = [NSString stringWithFormat:@"%.2f mi",distance];
 }
 
 

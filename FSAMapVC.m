@@ -46,10 +46,9 @@
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
 //    [mapView removeAnnotations:mapView.annotations];
-//    currentLocation = [locations firstObject];
-//    NSNumber *latitude = [distanceArray valueForKey:@"latitude"];
-//    NSNumber *longitude =[distanceArray valueForKey:@"longitude"];
-//    NSLog(@"lat and long are %@,%@",latitude,longitude);
+   currentLocation = [locations firstObject];
+    
+    
     
 //    CLLocationCoordinate2D coord;
 //    coord.latitude = latitude.floatValue;
@@ -65,8 +64,8 @@
 //        annotation.subtitle = @"City";
 //        [mapView addAnnotation:annotation];
 //
-        MKCoordinateRegion region = MKCoordinateRegionMake(currentLocation.coordinate, MKCoordinateSpanMake(1.0, 1.0));
-        [mapView setRegion:region animated:YES];
+//        MKCoordinateRegion region = MKCoordinateRegionMake(currentLocation.coordinate, MKCoordinateSpanMake(1.0, 1.0));
+//        [mapView setRegion:region animated:YES];
 //
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
     point.coordinate = currentLocation.coordinate;
@@ -78,6 +77,9 @@
     MKPointAnnotation *pointMany = [[MKPointAnnotation alloc] init];
     pointMany.coordinate = eventLocation.coordinate;
     [mapView addAnnotation:pointMany];
+    
+    NSArray *annotationArray = [NSArray arrayWithObjects:point,pointMany, nil];
+    [mapView showAnnotations:annotationArray animated:YES];
 
     
         CLGeocoder *coder = [[CLGeocoder alloc] init];
@@ -195,8 +197,12 @@
     tap.numberOfTouchesRequired = 1;
     [mapView addGestureRecognizer:tap];
     
-   
-    
+    NSInteger rowSelected = [STASingleton mainSingleton].index;
+    NSLog(@"row selected from tableVC is %d",(int)rowSelected);
+     double latitude = [[distanceArray[rowSelected] valueForKey:@"latitude"] doubleValue];
+    double longitude =[[distanceArray[rowSelected] valueForKey:@"longitude"]doubleValue];
+    NSLog(@"lat and long are %f,%f",latitude,longitude);
+    eventLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     
 }
 

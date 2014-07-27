@@ -11,6 +11,7 @@
 #import "FSAMapVC.h"
 #import "TAPFourSquareRequests.h"
 #import <CoreLocation/CoreLocation.h>
+#import "STASingleton.h"
 
 
 @interface FSATableVC () <CLLocationManagerDelegate>
@@ -139,6 +140,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@" %d row selected",(int)indexPath.row);
+    [STASingleton mainSingleton].index = indexPath.row;
     FSAMapVC *map = [[FSAMapVC alloc] initWithNibName:nil bundle:nil];
     [self.navigationController pushViewController:map animated:YES];
 }
