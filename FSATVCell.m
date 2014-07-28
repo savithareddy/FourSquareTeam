@@ -39,7 +39,7 @@
         [self.contentView addSubview:venueName];
         
         venuePlace = [[UILabel alloc] initWithFrame:CGRectMake(65, 30, 150, 12)];
-        [venuePlace setFont:[UIFont fontWithName:@"Arial" size:12.0f]];
+        [venuePlace setFont:[UIFont fontWithName:@"Arial" size:10.0f]];
 //        venuePlace.adjustsFontSizeToFitWidth=YES;
         [self.contentView addSubview:venuePlace];
         

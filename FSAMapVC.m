@@ -92,7 +92,8 @@
 //            NSLog(@"city is %@",placemark.addressDictionary[@"City"]);
 //            NSLog(@"state is %@",placemark.addressDictionary[@"State"]);
 //            [point setTitle :placemark.addressDictionary[@"City"]];
-            [point setTitle :placemark.addressDictionary[@"City"]];
+            NSString *cityState = [NSString stringWithFormat:@"%@,%@",placemark.addressDictionary[@"City"],placemark.addressDictionary[@"State"]];
+            [point setTitle :cityState];
 //            [point setSubtitle :placemark.addressDictionary[@"State"]];
 //            }
         }];
@@ -106,7 +107,9 @@
 //        NSLog(@"city is %@",placemark.addressDictionary[@"City"]);
 //        NSLog(@"state is %@",placemark.addressDictionary[@"State"]);
         //            [point setTitle :placemark.addressDictionary[@"City"]];
-        [pointMany setTitle :placemark.addressDictionary[@"City"]];
+        NSString *cityState = [NSString stringWithFormat:@"%@,%@",placemark.addressDictionary[@"City"],placemark.addressDictionary[@"State"]];
+        [pointMany setTitle :cityState];
+      
         //            [point setSubtitle :placemark.addressDictionary[@"State"]];
         //            }
     }];

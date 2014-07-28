@@ -131,6 +131,7 @@
     {
         cell = [[FSATVCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
+//    NSLog(@"array is %@",itemsInfo[indexPath.row]);
     cell.info = itemsInfo[indexPath.row];
     
 //    double lati = [itemsInfo objectAtIndex:<#(NSUInteger)#>

@@ -33,9 +33,10 @@
         NSString *name = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"name"];
         NSNumber *placeLat = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"lat"];
         NSNumber *placeLong = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"lng"];
+        NSString *placeStreet = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"address"];
         NSString *placeCity = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"city"];
         NSString *placeState= fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"state"];
-        NSString *placeSecond =[NSString stringWithFormat:@"%@ , %@",placeCity,placeState];
+        NSString *placeSecond =[NSString stringWithFormat:@"%@ , %@ , %@",placeStreet,placeCity,placeState];
         NSString *phone = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"contact"] [@"formattedPhone"];
         NSNumber *distance = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"distance"];
 //       [photos addObject:name];
