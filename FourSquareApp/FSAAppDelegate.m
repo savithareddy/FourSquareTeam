@@ -23,7 +23,7 @@
     UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:tableVC];
    
     self.window.rootViewController = nc;
-//     [TAPFourSquareRequests getPhotosWithVenues];
+     [TAPFourSquareRequests getPhotosWithVenues];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

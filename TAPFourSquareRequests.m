@@ -23,7 +23,7 @@
     NSDictionary *fsInfo = [NSJSONSerialization JSONObjectWithData:resonseData options:0 error:nil];
 //    NSLog(@"DIctionary is %@",fsInfo);
     
-    for (int index = 7 ; index < 13; index ++) {
+    for (int index = 8 ; index < 9; index ++) {
         NSString *photos1 = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"] [0] [@"icon"] [@"prefix"];
         NSString *photos2 = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"] [0] [@"icon"] [@"suffix"];
         NSString *dimension = @"bg_88";

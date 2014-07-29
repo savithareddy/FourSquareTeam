@@ -27,6 +27,8 @@
     NSMutableArray *distanceArray;
     CLLocation *eventLocation;
     FSATVCell *cell;
+    CLPlacemark *placemarkMany;
+ 
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -85,6 +87,7 @@
         CLGeocoder *coder = [[CLGeocoder alloc] init];
         [coder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
             CLPlacemark *placemark = [placemarks firstObject];
+           
 //            NSLog(@"current location detected");
 //            NSLog(@"placemark is %@",placemark);
             
@@ -99,7 +102,7 @@
         }];
     CLGeocoder *coderMany = [[CLGeocoder alloc] init];
     [coderMany reverseGeocodeLocation:eventLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-        CLPlacemark *placemark = [placemarks firstObject];
+        placemarkMany = [placemarks firstObject];
 //        NSLog(@"current location detected");
 //        NSLog(@"placemark is %@",placemark);
         
@@ -107,44 +110,67 @@
 //        NSLog(@"city is %@",placemark.addressDictionary[@"City"]);
 //        NSLog(@"state is %@",placemark.addressDictionary[@"State"]);
         //            [point setTitle :placemark.addressDictionary[@"City"]];
-        NSString *cityState = [NSString stringWithFormat:@"%@,%@",placemark.addressDictionary[@"City"],placemark.addressDictionary[@"State"]];
+        NSString *cityState = [NSString stringWithFormat:@"%@,%@",placemarkMany.addressDictionary[@"City"],placemarkMany.addressDictionary[@"State"]];
         [pointMany setTitle :cityState];
       
         //            [point setSubtitle :placemark.addressDictionary[@"State"]];
         //            }
     }];
 
+    MKDirectionsRequest *directionRequest = [[MKDirectionsRequest alloc] init];
+    MKMapItem *source = [MKMapItem mapItemForCurrentLocation];
+    MKPlacemark *destinationPlacemark = [[MKPlacemark alloc] initWithPlacemark:placemarkMany];
+    MKMapItem *destination = [[MKMapItem alloc] initWithPlacemark:destinationPlacemark];
+    directionRequest.source = source;
+    directionRequest.destination = destination;
+    directionRequest.transportType = MKDirectionsTransportTypeAutomobile;
+    MKDirections *directions = [[MKDirections alloc] initWithRequest:directionRequest];
+    [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
+        [self showRoute:response];
+        
+    }];
     
     
-    CLLocationDistance distance = [currentLocation distanceFromLocation:eventLocation];
-//    NSLog(@"distance is %lf",distance/1000);
-//    cell.venueDistance.text = [NSString stringWithFormat:@"%d" ,(int)distance/1000000];
-//    [STASingleton mainSingleton].distanceSingleton = distance/100000;
-    
-    MKMapPoint pointOne = MKMapPointForCoordinate(currentLocation.coordinate);
-    MKMapPoint pointTwo = MKMapPointForCoordinate(eventLocation.coordinate);
-    
-    MKMapPoint *pointArray = malloc(sizeof(CLLocationCoordinate2D) * 2);
-    pointArray[0] = pointOne;
-    pointArray[1] = pointTwo;
-//    NSLog(@"Array is %lf", pointArray);
-    
-    MKPolyline *routeLine = [MKPolyline polylineWithPoints:pointArray count:2];
-    [mapView addOverlay:routeLine];
+//    CLLocationDistance distance = [currentLocation distanceFromLocation:eventLocation];
+////    NSLog(@"distance is %lf",distance/1000);
+////    cell.venueDistance.text = [NSString stringWithFormat:@"%d" ,(int)distance/1000000];
+////    [STASingleton mainSingleton].distanceSingleton = distance/100000;
+//    
+//    MKMapPoint pointOne = MKMapPointForCoordinate(currentLocation.coordinate);
+//    MKMapPoint pointTwo = MKMapPointForCoordinate(eventLocation.coordinate);
+//    
+//    MKMapPoint *pointArray = malloc(sizeof(CLLocationCoordinate2D) * 2);
+//    pointArray[0] = pointOne;
+//    pointArray[1] = pointTwo;
+////    NSLog(@"Array is %lf", pointArray);
+//    
+//    MKPolyline *routeLine = [MKPolyline polylineWithPoints:pointArray count:2];
+//    [mapView addOverlay:routeLine];
     
 //    }
 }
 
+-(void) showRoute : (MKDirectionsResponse *) response
+{
+   [mapView removeOverlays:mapView.overlays];
+    for (MKRoute *route in response.routes) {
+//        MKRoute *route = response.routes.lastObject;
+        [mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
+//        [mapView insertOverlay:route.polyline atIndex:0 level:MKOverlayLevelAboveRoads];
+          }
+}
 
 -(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
 {
-//    if ([overlay isKindOfClass:[MKPolyline class]])
-//    {
-        MKPolylineRenderer *routeRenderer = [[MKPolylineRenderer alloc] initWithPolyline:overlay];
+   if ([overlay isKindOfClass:[MKPolyline class]])
+    {
+        MKPolyline *route = overlay;
+        MKPolylineRenderer *routeRenderer = [[MKPolylineRenderer alloc] initWithPolyline:route];
         routeRenderer.strokeColor = [UIColor blueColor];
+        routeRenderer.lineWidth = 5.0;
         return routeRenderer;
-//    }
-    
+    }
+   else return nil;
 }
 
 
