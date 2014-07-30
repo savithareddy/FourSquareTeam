@@ -11,7 +11,8 @@
 #import "TAPFourSquareRequests.h"
 
 
-@implementation FSATVCell
+
+@implementation FSATVCell 
 {
     UIImageView *venueImage;
     UILabel *venueName;
@@ -34,18 +35,18 @@
         [self.contentView addSubview:venueImage];
         
         venueName = [[UILabel alloc] initWithFrame:CGRectMake(65, 10, 200, 15)];
-        [venueName setFont:[UIFont fontWithName:@"Seravek" size:18]];
+        [venueName setFont:[UIFont fontWithName:@"Arial" size:15.0f]];
         venueName.textColor = [UIColor blueColor];
         [self.contentView addSubview:venueName];
         
-        venuePlace = [[UILabel alloc] initWithFrame:CGRectMake(65, 30, 150, 12)];
-        [venuePlace setFont:[UIFont fontWithName:@"Arial" size:10.0f]];
+        venuePlace = [[UILabel alloc] initWithFrame:CGRectMake(65, 30, 180, 12)];
+        [venuePlace setFont:[UIFont fontWithName:@"Arial" size:8.0f]];
 //        venuePlace.adjustsFontSizeToFitWidth=YES;
         [self.contentView addSubview:venuePlace];
         
         venuePhone = [[UILabel alloc] initWithFrame:CGRectMake(65, 52, 150, 10)];
         [venuePhone setFont:[UIFont fontWithName:@"Arial" size:10]];
-        [self.contentView addSubview:venuePhone];
+//        [self.contentView addSubview:venuePhone];
         
         self.venueDistance = [[UILabel alloc] initWithFrame:CGRectMake(260, 10, 80, 50)];
 //        self.venueDistance.backgroundColor = [UIColor lightGrayColor];
@@ -86,7 +87,7 @@
     venueImage.image = image;
     venueName.text = info[@"name"];
     venuePlace.text = info[@"place"];
-    venuePhone.text = info[@"phone"];
+//    venuePhone.text = info[@"phone"];
 //   NSUInteger intDist = (int)info[@"distance"];
 //    NSLog(@" distance is %d",(int)intDist);
 //   venueDistance.text = [NSString stringWithFormat:@ "%d",(int) info[@"distance"]];
@@ -105,6 +106,7 @@
 
 -(void)layoutSubviews
 {
+    
     CLLocationDistance distance = [currentLocation distanceFromLocation:eventLocation]* 0.000621371;
     NSLog(@"distance is %f",distance);
     self.venueDistance.text = [NSString stringWithFormat:@"%.2f mi",distance];

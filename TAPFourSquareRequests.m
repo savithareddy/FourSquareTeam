@@ -16,14 +16,14 @@
 {
     NSMutableArray *photos = [@[] mutableCopy];
     
-    NSString *locationURL = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?ll=40.7,-74&oauth_token=UQGRMZSKDL2DZIGQ430EW0AHPJ1S30ZEQBCOWDXRQ5AYE5KB&v=20140723"];
+    NSString *locationURL = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?ll=33.7,-84.39&oauth_token=UQGRMZSKDL2DZIGQ430EW0AHPJ1S30ZEQBCOWDXRQ5AYE5KB&v=20140723"];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL]];
     NSData *resonseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSDictionary *fsInfo = [NSJSONSerialization JSONObjectWithData:resonseData options:0 error:nil];
 //    NSLog(@"DIctionary is %@",fsInfo);
     
-    for (int index = 8 ; index < 9; index ++) {
+    for (int index = 0 ; index < 30; index ++) {
         NSString *photos1 = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"] [0] [@"icon"] [@"prefix"];
         NSString *photos2 = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"] [0] [@"icon"] [@"suffix"];
         NSString *dimension = @"bg_88";
@@ -37,7 +37,7 @@
         NSString *placeCity = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"city"];
         NSString *placeState= fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"state"];
         NSString *placeSecond =[NSString stringWithFormat:@"%@ , %@ , %@",placeStreet,placeCity,placeState];
-        NSString *phone = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"contact"] [@"formattedPhone"];
+//        NSString *phone = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"contact"] [@"formattedPhone"];
         NSNumber *distance = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"distance"];
 //       [photos addObject:name];
 //        [photos addObject:place];
@@ -47,7 +47,7 @@
         [dict setObject:joinString forKey:@"image"];
         [dict setObject: name forKey:@"name"];
         [dict setObject:placeSecond forKey:@"place"];
-        [dict setObject:phone forKey:@"phone"];
+//        [dict setObject:phone forKey:@"phone"];
         [dict setObject:distance forKey:@"distance"];
         [dict setObject:placeLat forKey:@"latitude"];
         [dict setObject:placeLong forKey:@"longitude"];

@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface STASingleton : NSObject
 
@@ -16,6 +17,8 @@
 @property (nonatomic) NSInteger index;
 //@property (nonatomic) NSInteger colorRed;
 //@property (nonatomic) NSInteger detailColor;
+
+@property (nonatomic) CLLocationDistance distance;
 
 
 

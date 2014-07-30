@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
 //@protocol FSATVCellDelegate;
 
-@interface FSATVCell : UITableViewCell <CLLocationManagerDelegate>
+@interface FSATVCell : UITableViewCell <CLLocationManagerDelegate,MKMapViewDelegate>
 
 @property (nonatomic) NSDictionary *info;
 

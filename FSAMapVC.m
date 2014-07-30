@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 Savitha. All rights reserved.
 //
 
+#define SCREEN_HEIGHT [UIScreen mainScreen] .bounds.size.height
+#define SCREEN_WIDTH [UIScreen mainScreen] .bounds.size.width
+
 #import "FSAMapVC.h"
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
@@ -28,6 +31,7 @@
     CLLocation *eventLocation;
     FSATVCell *cell;
     CLPlacemark *placemarkMany;
+    CLLocationDistance distance;
  
 }
 
@@ -102,7 +106,7 @@
         }];
     CLGeocoder *coderMany = [[CLGeocoder alloc] init];
     [coderMany reverseGeocodeLocation:eventLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-        placemarkMany = [placemarks firstObject];
+        placemarkMany = [placemarks lastObject];
 //        NSLog(@"current location detected");
 //        NSLog(@"placemark is %@",placemark);
         
@@ -119,16 +123,23 @@
 
     MKDirectionsRequest *directionRequest = [[MKDirectionsRequest alloc] init];
     MKMapItem *source = [MKMapItem mapItemForCurrentLocation];
-    MKPlacemark *destinationPlacemark = [[MKPlacemark alloc] initWithPlacemark:placemarkMany];
+    MKPlacemark *destinationPlacemark = [[MKPlacemark alloc] initWithCoordinate:eventLocation.coordinate addressDictionary:nil];
     MKMapItem *destination = [[MKMapItem alloc] initWithPlacemark:destinationPlacemark];
     directionRequest.source = source;
     directionRequest.destination = destination;
     directionRequest.transportType = MKDirectionsTransportTypeAutomobile;
+//    CLLocationDistance distance = [currentLocation distanceFromLocation:eventLocation]* 0.000621371;
+//    NSLog(@"distance is %f",distance);
+    
+//    self.venueDistance.text = [NSString stringWithFormat:@"%.2f mi",distance];
     MKDirections *directions = [[MKDirections alloc] initWithRequest:directionRequest];
     [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
-        [self showRoute:response];
+//        [self calculateDistance:response];
+                [self showRoute:response];
         
     }];
+    
+    
     
     
 //    CLLocationDistance distance = [currentLocation distanceFromLocation:eventLocation];
@@ -150,9 +161,39 @@
 //    }
 }
 
+-(void) calculateDistance : (MKDirectionsResponse *) response
+{
+    MKRoute *route = response.routes[0];
+    distance = (route.distance)  * 0.000621371;
+    NSLog(@"distance is %f",distance);
+    [STASingleton mainSingleton].distance = distance;
+    
+    
+    UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-40, SCREEN_WIDTH, 40)];
+//    footer.backgroundColor = [UIColor blueColor];
+    footer.backgroundColor = [UIColor colorWithRed:0.1 green:0.3 blue:0.6 alpha:0.2];
+    [self.view addSubview:footer];
+    
+    UILabel *distanceLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(140, 10, 100, 30)];
+    distanceLabel1.text = @"Travel Distance is :";
+    distanceLabel1.font = [UIFont fontWithName:@"Arial" size:10];
+    [footer addSubview:distanceLabel1];
+    
+    UILabel *distanceLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(230, 10, 60, 30)];
+    distanceLabel2.text = [NSString stringWithFormat:@"%.2f",distance];
+    distanceLabel2.font = [UIFont fontWithName:@"Arial" size:10];
+    [footer addSubview:distanceLabel2];
+    
+    UILabel *distanceLabel3 = [[UILabel alloc] initWithFrame:CGRectMake(260, 10, 30, 30)];
+    distanceLabel3.text = @"  mi";
+    distanceLabel3.font = [UIFont fontWithName:@"Arial" size:10];
+    [footer addSubview:distanceLabel3];
+
+}
+
 -(void) showRoute : (MKDirectionsResponse *) response
 {
-   [mapView removeOverlays:mapView.overlays];
+//   [mapView removeOverlays:mapView.overlays];
     for (MKRoute *route in response.routes) {
 //        MKRoute *route = response.routes.lastObject;
         [mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
@@ -167,7 +208,7 @@
         MKPolyline *route = overlay;
         MKPolylineRenderer *routeRenderer = [[MKPolylineRenderer alloc] initWithPolyline:route];
         routeRenderer.strokeColor = [UIColor blueColor];
-        routeRenderer.lineWidth = 5.0;
+//        routeRenderer.lineWidth = 5.0;
         return routeRenderer;
     }
    else return nil;
@@ -217,7 +258,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
+    mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-40)];
     mapView.delegate= self;
     [self.view addSubview:mapView];
     
@@ -232,6 +273,14 @@
     double longitude =[[distanceArray[rowSelected] valueForKey:@"longitude"]doubleValue];
     NSLog(@"lat and long are %f,%f",latitude,longitude);
     eventLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+    
+    
+    
+}
+
+-(void)viewWillLayoutSubviews
+{
+   
     
 }
 

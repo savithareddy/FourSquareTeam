@@ -12,9 +12,10 @@
 #import "TAPFourSquareRequests.h"
 #import <CoreLocation/CoreLocation.h>
 #import "STASingleton.h"
+#import <MapKit/MapKit.h>
 
 
-@interface FSATableVC () <CLLocationManagerDelegate>
+@interface FSATableVC () <CLLocationManagerDelegate,MKMapViewDelegate>
 
 @end
 
@@ -22,7 +23,7 @@
 {
     NSArray *itemsInfo;
     CLLocationManager *lmanager;
-    
+    NSArray *sortedArray;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -37,7 +38,15 @@
         [headerTitle setFont:[UIFont fontWithName:@"Chalkduster" size:25]];
         self.navigationItem.titleView = headerTitle;
         
+//        UIBarButtonItem *sortIcon = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(sortList)];
+//        self.navigationItem.rightBarButtonItem = sortIcon;
+        
         itemsInfo = [TAPFourSquareRequests getPhotosWithVenues];
+        NSLog(@" All distances array is %f", [STASingleton mainSingleton].distance);
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES];
+        NSArray *sortArray = [NSArray arrayWithObject:sortDescriptor];
+        sortedArray = [itemsInfo sortedArrayUsingDescriptors:sortArray];
+        NSLog(@"Sorted array is %@",sortedArray);
 //        NSLog(@"TableVc items are %@",itemsInfo);
 //        itemsInfo = [@[@{@"image":[UIImage imageNamed:@"venue.jpeg"],
 //                         @"name":@"HollyWood",
@@ -66,9 +75,19 @@
 //                        @"distance":@"0.9 mi" }
 //                        ]mutableCopy];
         
+        MKRoute *route = response.routes[0];
+        distance = (route.distance)  * 0.000621371;
+        NSLog(@"distance is %f",distance);
+        [STASingleton mainSingleton].distance = distance;
+
+        
     }
     return self;
 }
+
+-(void) sortList
+{
+   }
 
 - (void)viewDidLoad
 {
@@ -88,6 +107,8 @@
 
 //  });
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation:) name:@"newNotification" object:nil];
+    
+    
 }
 
 -(void) fetch
@@ -120,7 +141,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 //    NSLog(@"items count is %d",(int)[itemsInfo count]);
-    return [itemsInfo count];
+    return [sortedArray count];
 }
 
 
@@ -132,7 +153,9 @@
         cell = [[FSATVCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
 //    NSLog(@"array is %@",itemsInfo[indexPath.row]);
-    cell.info = itemsInfo[indexPath.row];
+    
+
+    cell.info = sortedArray[indexPath.row];
     
 //    double lati = [itemsInfo objectAtIndex:<#(NSUInteger)#>
     
