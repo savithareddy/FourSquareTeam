@@ -74,6 +74,7 @@
 //        [mapView setRegion:region animated:YES];
 //
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+    
     point.coordinate = currentLocation.coordinate;
     [mapView addAnnotation:point];
     
@@ -134,7 +135,7 @@
 //    self.venueDistance.text = [NSString stringWithFormat:@"%.2f mi",distance];
     MKDirections *directions = [[MKDirections alloc] initWithRequest:directionRequest];
     [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
-//        [self calculateDistance:response];
+        [self calculateDistance:response];
                 [self showRoute:response];
         
     }];
@@ -165,12 +166,11 @@
 {
     MKRoute *route = response.routes[0];
     distance = (route.distance)  * 0.000621371;
-    NSLog(@"distance is %f",distance);
+//    NSLog(@"distance is %f",distance);
     [STASingleton mainSingleton].distance = distance;
     
-    
     UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-40, SCREEN_WIDTH, 40)];
-//    footer.backgroundColor = [UIColor blueColor];
+    //    footer.backgroundColor = [UIColor blueColor];
     footer.backgroundColor = [UIColor colorWithRed:0.1 green:0.3 blue:0.6 alpha:0.2];
     [self.view addSubview:footer];
     
@@ -188,7 +188,9 @@
     distanceLabel3.text = @"  mi";
     distanceLabel3.font = [UIFont fontWithName:@"Arial" size:10];
     [footer addSubview:distanceLabel3];
+    
 
+    
 }
 
 -(void) showRoute : (MKDirectionsResponse *) response
@@ -245,6 +247,7 @@
     }else{
         annoteView.annotation = annotation;
     }
+ 
     annoteView.canShowCallout=YES;
     return annoteView;
 }
@@ -268,19 +271,19 @@
     [mapView addGestureRecognizer:tap];
     
     NSInteger rowSelected = [STASingleton mainSingleton].index;
-    NSLog(@"row selected from tableVC is %d",(int)rowSelected);
+//    NSLog(@"row selected from tableVC is %d",(int)rowSelected);
      double latitude = [[distanceArray[rowSelected] valueForKey:@"latitude"] doubleValue];
     double longitude =[[distanceArray[rowSelected] valueForKey:@"longitude"]doubleValue];
-    NSLog(@"lat and long are %f,%f",latitude,longitude);
+//    NSLog(@"lat and long are %f,%f",latitude,longitude);
     eventLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
     
     
     
 }
 
--(void)viewWillLayoutSubviews
+-(void)viewWillAppear:(BOOL)animated
 {
-   
+    
     
 }
 

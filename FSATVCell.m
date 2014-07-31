@@ -22,13 +22,13 @@
     NSArray *latLong;
     CLLocation *currentLocation;
     CLLocation *eventLocation;
+    UIImageView *venueImage1;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        
         venueImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 50, 50)];
         venueImage.layer.cornerRadius = 25;
         venueImage.clipsToBounds = YES;
@@ -48,15 +48,24 @@
         [venuePhone setFont:[UIFont fontWithName:@"Arial" size:10]];
 //        [self.contentView addSubview:venuePhone];
         
-        self.venueDistance = [[UILabel alloc] initWithFrame:CGRectMake(260, 10, 80, 50)];
+//        self.venueDistance = [[UILabel alloc] initWithFrame:CGRectMake(260, 10, 80, 50)];
+        self.venueDistance = [[UILabel alloc] initWithFrame:CGRectMake(65, 52, 150, 10)];
+
 //        self.venueDistance.backgroundColor = [UIColor lightGrayColor];
 //        self.venueDistance.layer.cornerRadius = 25;
 //        self.venueDistance.clipsToBounds = YES;
         [self.venueDistance setFont:[UIFont fontWithName:@"Arial" size:10]];
-        self.venueDistance.textColor = [UIColor blueColor];
+        self.venueDistance.textColor = [UIColor orangeColor];
 //        NSLog(@"Singleton distance is %d",(int)[STASingleton mainSingleton].distanceSingleton);
 //        venueDistance.text = [NSString stringWithFormat:@"%d",(int)[STASingleton mainSingleton].distanceSingleton];
        [self.contentView addSubview:self.venueDistance];
+        
+        venueImage1 = [[UIImageView alloc] initWithFrame:CGRectMake(300, 25, 20, 20)];
+//        venueImage1.layer.cornerRadius =;
+        venueImage1.clipsToBounds = YES;
+        venueImage1.image = [UIImage imageNamed:@"arrow"];
+        [self.contentView addSubview:venueImage1];
+
         
 //        latLong = [TAPFourSquareRequests getPhotosWithVenues];
 //        NSNumber *lat = [latLong valueForKey:@"latitude"];
@@ -74,7 +83,7 @@
     
     currentLocation = (CLLocation *)[ [notify userInfo] valueForKey:@"newLocationResult"];
     
-    NSLog(@"current location  in cell  is %lf,%lf",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
+//    NSLog(@"current location  in cell  is %lf,%lf",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
 
 }
 
@@ -96,7 +105,7 @@
     CLLocationDegrees lat =  [[info objectForKey:@"latitude"] doubleValue];
     CLLocationDegrees longi =  [[info objectForKey:@"longitude"] doubleValue];
     eventLocation = [[CLLocation alloc] initWithLatitude:lat longitude:longi];
-    NSLog(@"event location  in cell is %lf,%lf",eventLocation.coordinate.latitude,eventLocation.coordinate.longitude);
+//    NSLog(@"event location  in cell is %lf,%lf",eventLocation.coordinate.latitude,eventLocation.coordinate.longitude);
 
    
    
@@ -108,7 +117,7 @@
 {
     
     CLLocationDistance distance = [currentLocation distanceFromLocation:eventLocation]* 0.000621371;
-    NSLog(@"distance is %f",distance);
+//    NSLog(@"distance is %f",distance);
     self.venueDistance.text = [NSString stringWithFormat:@"%.2f mi",distance];
 }
 

@@ -30,6 +30,7 @@
 		916DF1601981DEFF00AEBCB6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 916DF15F1981DEFF00AEBCB6 /* CoreLocation.framework */; };
 		916DF1631981FCEC00AEBCB6 /* STASingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 916DF1621981FCEC00AEBCB6 /* STASingleton.m */; };
 		919112F21980641000AAB5F5 /* TAPFourSquareRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = 919112F11980641000AAB5F5 /* TAPFourSquareRequests.m */; };
+		91A16AF4198A175800528164 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 91A16AF3198A175800528164 /* arrow.png */; };
 		91C11ECF197F3C5800F1D808 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91C11ECE197F3C5800F1D808 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,7 @@
 		916DF1621981FCEC00AEBCB6 /* STASingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STASingleton.m; sourceTree = "<group>"; };
 		919112F01980641000AAB5F5 /* TAPFourSquareRequests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAPFourSquareRequests.h; sourceTree = "<group>"; };
 		919112F11980641000AAB5F5 /* TAPFourSquareRequests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAPFourSquareRequests.m; sourceTree = "<group>"; };
+		91A16AF3198A175800528164 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		91C11ECE197F3C5800F1D808 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -112,6 +114,7 @@
 		911367E5197DBFE0002B41A0 = {
 			isa = PBXGroup;
 			children = (
+				91A16AF3198A175800528164 /* arrow.png */,
 				916DF1611981FCEC00AEBCB6 /* STASingleton.h */,
 				916DF1621981FCEC00AEBCB6 /* STASingleton.m */,
 				919112F01980641000AAB5F5 /* TAPFourSquareRequests.h */,
@@ -277,6 +280,7 @@
 				911367FC197DBFE0002B41A0 /* InfoPlist.strings in Resources */,
 				91136804197DBFE0002B41A0 /* Images.xcassets in Resources */,
 				91136834197DCB61002B41A0 /* venue.jpeg in Resources */,
+				91A16AF4198A175800528164 /* arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
