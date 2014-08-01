@@ -59,4 +59,148 @@
 
 }
 
++(NSMutableArray *)getPhotosWithVenuesNewYork
+{
+    NSMutableArray *photos = [@[] mutableCopy];
+    
+    NSString *locationURL = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?ll=40.71,-74&oauth_token=UQGRMZSKDL2DZIGQ430EW0AHPJ1S30ZEQBCOWDXRQ5AYE5KB&v=20140723"];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL]];
+    NSData *resonseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    NSDictionary *fsInfo = [NSJSONSerialization JSONObjectWithData:resonseData options:0 error:nil];
+    //    NSLog(@"DIctionary is %@",fsInfo);
+    
+    for (int index = 0 ; index < 30; index ++) {
+        NSString *photos1 = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"] [0] [@"icon"] [@"prefix"];
+        NSString *photos2 = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"] [0] [@"icon"] [@"suffix"];
+        NSString *dimension = @"bg_88";
+        NSString *joinString=[NSString stringWithFormat:@"%@%@%@",photos1,dimension,photos2];
+        //        [photos addObject:joinString];
+        
+        NSString *name = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"name"];
+        NSNumber *placeLat = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"lat"];
+        NSNumber *placeLong = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"lng"];
+        NSString *placeStreet = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"address"];
+        NSString *placeCity = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"city"];
+        NSString *placeState= fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"state"];
+        NSString *placeSecond =[NSString stringWithFormat:@"%@ , %@ , %@",placeStreet,placeCity,placeState];
+        //        NSString *phone = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"contact"] [@"formattedPhone"];
+        NSNumber *distance = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"distance"];
+        //       [photos addObject:name];
+        //        [photos addObject:place];
+        //        [photos addObject:phone];
+        //        [photos addObject:distance];
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+        [dict setObject:joinString forKey:@"image"];
+        [dict setObject: name forKey:@"name"];
+        [dict setObject:placeSecond forKey:@"place"];
+        //        [dict setObject:phone forKey:@"phone"];
+        [dict setObject:distance forKey:@"distance"];
+        [dict setObject:placeLat forKey:@"latitude"];
+        [dict setObject:placeLong forKey:@"longitude"];
+        [photos addObject:dict];
+        //        NSLog(@"Dictionary is %@",dict);
+    }
+    //    NSLog(@" photos %@",photos);
+    return photos;
+    
+}
+
++(NSMutableArray *)getPhotosWithVenuesLosAngeles
+{
+    NSMutableArray *photos = [@[] mutableCopy];
+    
+    NSString *locationURL = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?ll=34.05,-118.25&oauth_token=UQGRMZSKDL2DZIGQ430EW0AHPJ1S30ZEQBCOWDXRQ5AYE5KB&v=20140723"];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL]];
+    NSData *resonseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    NSDictionary *fsInfo = [NSJSONSerialization JSONObjectWithData:resonseData options:0 error:nil];
+    //    NSLog(@"DIctionary is %@",fsInfo);
+    
+    for (int index = 0 ; index < 30; index ++) {
+        NSString *photos1 = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"] [0] [@"icon"] [@"prefix"];
+        NSString *photos2 = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"] [0] [@"icon"] [@"suffix"];
+        NSString *dimension = @"bg_88";
+        NSString *joinString=[NSString stringWithFormat:@"%@%@%@",photos1,dimension,photos2];
+        //        [photos addObject:joinString];
+        
+        NSString *name = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"name"];
+        NSNumber *placeLat = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"lat"];
+        NSNumber *placeLong = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"lng"];
+        NSString *placeStreet = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"address"];
+        NSString *placeCity = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"city"];
+        NSString *placeState= fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"state"];
+        NSString *placeSecond =[NSString stringWithFormat:@"%@ , %@ , %@",placeStreet,placeCity,placeState];
+        //        NSString *phone = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"contact"] [@"formattedPhone"];
+        NSNumber *distance = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"distance"];
+        //       [photos addObject:name];
+        //        [photos addObject:place];
+        //        [photos addObject:phone];
+        //        [photos addObject:distance];
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+        [dict setObject:joinString forKey:@"image"];
+        [dict setObject: name forKey:@"name"];
+        [dict setObject:placeSecond forKey:@"place"];
+        //        [dict setObject:phone forKey:@"phone"];
+        [dict setObject:distance forKey:@"distance"];
+        [dict setObject:placeLat forKey:@"latitude"];
+        [dict setObject:placeLong forKey:@"longitude"];
+        [photos addObject:dict];
+        //        NSLog(@"Dictionary is %@",dict);
+    }
+    //    NSLog(@" photos %@",photos);
+    return photos;
+    
+}
+
++(NSMutableArray *)getPhotosWithVenuesBangalore
+{
+    NSMutableArray *photos = [@[] mutableCopy];
+    
+    NSString *locationURL = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?ll=12.97,77.57&oauth_token=UQGRMZSKDL2DZIGQ430EW0AHPJ1S30ZEQBCOWDXRQ5AYE5KB&v=20140723"];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL]];
+    NSData *resonseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    NSDictionary *fsInfo = [NSJSONSerialization JSONObjectWithData:resonseData options:0 error:nil];
+    //    NSLog(@"DIctionary is %@",fsInfo);
+    
+    for (int index = 0 ; index < 30; index ++) {
+        NSString *photos1 = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"] [0] [@"icon"] [@"prefix"];
+        NSString *photos2 = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"] [0] [@"icon"] [@"suffix"];
+        NSString *dimension = @"bg_88";
+        NSString *joinString=[NSString stringWithFormat:@"%@%@%@",photos1,dimension,photos2];
+        //        [photos addObject:joinString];
+        
+        NSString *name = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"name"];
+        NSNumber *placeLat = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"lat"];
+        NSNumber *placeLong = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"lng"];
+        NSString *placeStreet = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"address"];
+        NSString *placeCity = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"city"];
+        NSString *placeState= fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"state"];
+        NSString *placeSecond =[NSString stringWithFormat:@"%@ , %@ , %@",placeStreet,placeCity,placeState];
+        //        NSString *phone = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"contact"] [@"formattedPhone"];
+        NSNumber *distance = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"distance"];
+        //       [photos addObject:name];
+        //        [photos addObject:place];
+        //        [photos addObject:phone];
+        //        [photos addObject:distance];
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc]init];
+        [dict setObject:joinString forKey:@"image"];
+        [dict setObject: name forKey:@"name"];
+        [dict setObject:placeSecond forKey:@"place"];
+        //        [dict setObject:phone forKey:@"phone"];
+        [dict setObject:distance forKey:@"distance"];
+        [dict setObject:placeLat forKey:@"latitude"];
+        [dict setObject:placeLong forKey:@"longitude"];
+        [photos addObject:dict];
+        //        NSLog(@"Dictionary is %@",dict);
+    }
+    //    NSLog(@" photos %@",photos);
+    return photos;
+    
+}
+
+
+
+
 @end

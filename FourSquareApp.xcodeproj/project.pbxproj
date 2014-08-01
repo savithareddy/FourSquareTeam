@@ -27,6 +27,8 @@
 		9113682F197DC534002B41A0 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9113682E197DC534002B41A0 /* Accounts.framework */; };
 		91136832197DC5E0002B41A0 /* FSAAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91136831197DC5E0002B41A0 /* FSAAnnotation.m */; };
 		91136834197DCB61002B41A0 /* venue.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 91136833197DCB61002B41A0 /* venue.jpeg */; };
+		91651CBB198AD8B800BD3CF6 /* FSAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91651CBA198AD8B800BD3CF6 /* FSAViewController.m */; };
+		91651CBD198ADE1600BD3CF6 /* images.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 91651CBC198ADE1600BD3CF6 /* images.jpeg */; };
 		916DF1601981DEFF00AEBCB6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 916DF15F1981DEFF00AEBCB6 /* CoreLocation.framework */; };
 		916DF1631981FCEC00AEBCB6 /* STASingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 916DF1621981FCEC00AEBCB6 /* STASingleton.m */; };
 		919112F21980641000AAB5F5 /* TAPFourSquareRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = 919112F11980641000AAB5F5 /* TAPFourSquareRequests.m */; };
@@ -74,6 +76,9 @@
 		91136830197DC5E0002B41A0 /* FSAAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSAAnnotation.h; sourceTree = "<group>"; };
 		91136831197DC5E0002B41A0 /* FSAAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSAAnnotation.m; sourceTree = "<group>"; };
 		91136833197DCB61002B41A0 /* venue.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = venue.jpeg; sourceTree = "<group>"; };
+		91651CB9198AD8B800BD3CF6 /* FSAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSAViewController.h; sourceTree = "<group>"; };
+		91651CBA198AD8B800BD3CF6 /* FSAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSAViewController.m; sourceTree = "<group>"; };
+		91651CBC198ADE1600BD3CF6 /* images.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = images.jpeg; sourceTree = "<group>"; };
 		916DF15F1981DEFF00AEBCB6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		916DF1611981FCEC00AEBCB6 /* STASingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STASingleton.h; sourceTree = "<group>"; };
 		916DF1621981FCEC00AEBCB6 /* STASingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STASingleton.m; sourceTree = "<group>"; };
@@ -114,6 +119,7 @@
 		911367E5197DBFE0002B41A0 = {
 			isa = PBXGroup;
 			children = (
+				91651CBC198ADE1600BD3CF6 /* images.jpeg */,
 				91A16AF3198A175800528164 /* arrow.png */,
 				916DF1611981FCEC00AEBCB6 /* STASingleton.h */,
 				916DF1621981FCEC00AEBCB6 /* STASingleton.m */,
@@ -130,6 +136,8 @@
 				91136821197DC0CA002B41A0 /* FSATableVC.m */,
 				91136826197DC202002B41A0 /* FSATVCell.h */,
 				91136827197DC202002B41A0 /* FSATVCell.m */,
+				91651CB9198AD8B800BD3CF6 /* FSAViewController.h */,
+				91651CBA198AD8B800BD3CF6 /* FSAViewController.m */,
 				911367F7197DBFE0002B41A0 /* FourSquareApp */,
 				91136810197DBFE0002B41A0 /* FourSquareAppTests */,
 				911367F0197DBFE0002B41A0 /* Frameworks */,
@@ -278,6 +286,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				911367FC197DBFE0002B41A0 /* InfoPlist.strings in Resources */,
+				91651CBD198ADE1600BD3CF6 /* images.jpeg in Resources */,
 				91136804197DBFE0002B41A0 /* Images.xcassets in Resources */,
 				91136834197DCB61002B41A0 /* venue.jpeg in Resources */,
 				91A16AF4198A175800528164 /* arrow.png in Resources */,
@@ -302,6 +311,7 @@
 				919112F21980641000AAB5F5 /* TAPFourSquareRequests.m in Sources */,
 				911367FE197DBFE0002B41A0 /* main.m in Sources */,
 				91136832197DC5E0002B41A0 /* FSAAnnotation.m in Sources */,
+				91651CBB198AD8B800BD3CF6 /* FSAViewController.m in Sources */,
 				916DF1631981FCEC00AEBCB6 /* STASingleton.m in Sources */,
 				91136828197DC202002B41A0 /* FSATVCell.m in Sources */,
 				91136802197DBFE0002B41A0 /* FSAAppDelegate.m in Sources */,

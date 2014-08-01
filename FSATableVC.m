@@ -53,8 +53,18 @@
         
 //        UIBarButtonItem *sortIcon = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(sortList)];
 //        self.navigationItem.rightBarButtonItem = sortIcon;
-        
+        NSInteger tagPlace = [STASingleton mainSingleton].buttonTag;
+        if (tagPlace == 1) {
         itemsInfo = [TAPFourSquareRequests getPhotosWithVenues];
+        }else if (tagPlace == 2){
+            itemsInfo = [TAPFourSquareRequests getPhotosWithVenuesNewYork];
+        }else if (tagPlace == 3){
+            itemsInfo = [TAPFourSquareRequests getPhotosWithVenuesLosAngeles];
+        }else if (tagPlace == 4){
+            itemsInfo = [TAPFourSquareRequests getPhotosWithVenuesBangalore];
+        }
+            
+        
         searchResults = [NSMutableArray arrayWithCapacity:[itemsInfo count]];
         
 //        NSLog(@" All distances array is %f", [STASingleton mainSingleton].distance);
@@ -101,8 +111,17 @@
 //        searchItem.style = (searchItem.style == UIBarButtonItemStyleBordered) ? UIBarButtonItemStyleDone : UIBarButtonItemStyleBordered;
 //        isSelected = (searchItem.style == UIBarButtonItemStyleDone);
 //        self.navigationItem.rightBarButtonItem = searchItem;
+        
+        UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(goToVC)];
+        self.navigationItem.leftBarButtonItem = back;
+
      }
     return self;
+}
+
+-(void) goToVC
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(void) searchButton
@@ -139,6 +158,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationController.navigationBarHidden = NO;
 //    [NSThread detachNewThreadSelector:@selector(fetch) toTarget:self withObject:nil];
     lmanager = [[CLLocationManager alloc] init];
     lmanager.delegate =self;
@@ -220,7 +240,7 @@
 {
 //    NSLog(@"items count is %d",(int)[itemsInfo count]);
     if (tableView == searchDisplay.searchResultsTableView) {
-        NSLog(@"searched items count is %d",(int)[searchResults count]);
+//        NSLog(@"searched items count is %d",(int)[searchResults count]);
         return [searchResults count];
         
     } else {
@@ -240,7 +260,7 @@
 //    NSLog(@"array is %@",itemsInfo[indexPath.row]);
     
     if (tableView == searchDisplay.searchResultsTableView) {
-            NSLog(@"searched array is %@",searchResults[indexPath.row]);
+//            NSLog(@"searched array is %@",searchResults[indexPath.row]);
 //        cell.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.info = searchResults[indexPath.row];
     } else {

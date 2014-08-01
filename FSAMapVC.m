@@ -44,7 +44,19 @@
         [lManager startUpdatingLocation];
         UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(goToTable)];
         self.navigationItem.leftBarButtonItem = back;
-        distanceArray = [TAPFourSquareRequests getPhotosWithVenues];
+        
+        NSInteger tagPlace = [STASingleton mainSingleton].buttonTag;
+        if (tagPlace == 1) {
+            distanceArray = [TAPFourSquareRequests getPhotosWithVenues];
+        }else if (tagPlace == 2){
+            distanceArray = [TAPFourSquareRequests getPhotosWithVenuesNewYork];
+        }else if (tagPlace == 3){
+            distanceArray = [TAPFourSquareRequests getPhotosWithVenuesLosAngeles];
+        }else if (tagPlace == 4){
+            distanceArray = [TAPFourSquareRequests getPhotosWithVenuesBangalore];
+        }
+
+        
     }
     return self;
 }
@@ -261,6 +273,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationController.navigationBarHidden = NO;
+
     mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-40)];
     mapView.delegate= self;
     [self.view addSubview:mapView];

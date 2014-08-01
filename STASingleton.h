@@ -20,6 +20,8 @@
 
 @property (nonatomic) CLLocationDistance distance;
 
+@property (nonatomic) NSInteger buttonTag;
+
 
 
 @end

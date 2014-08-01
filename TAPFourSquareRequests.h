@@ -12,4 +12,10 @@
 
 +(NSMutableArray *)getPhotosWithVenues;
 
++(NSMutableArray *)getPhotosWithVenuesNewYork;
+
++(NSMutableArray *)getPhotosWithVenuesLosAngeles;
+
++(NSMutableArray *)getPhotosWithVenuesBangalore;
+
 @end

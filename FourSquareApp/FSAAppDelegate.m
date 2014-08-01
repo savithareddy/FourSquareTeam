@@ -7,6 +7,7 @@
 //
 
 #import "FSAAppDelegate.h"
+#import "FSAViewController.h"
 #import "FSATableVC.h"
 #import "TAPFourSquareRequests.h"
 
@@ -19,11 +20,11 @@
     // Override point for customization after application launch.
     
     
-    FSATableVC *tableVC = [[FSATableVC alloc] initWithStyle:UITableViewStylePlain];
-    UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:tableVC];
-   
-    self.window.rootViewController = nc;
-     [TAPFourSquareRequests getPhotosWithVenues];
+//    FSATableVC *tableVC = [[FSATableVC alloc] initWithStyle:UITableViewStylePlain];
+    FSAViewController *viewVC = [[FSAViewController alloc] init];
+    UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:viewVC];
+   self.window.rootViewController = nc;
+//     [TAPFourSquareRequests getPhotosWithVenues];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
