@@ -22,7 +22,6 @@
 		91136822197DC0CA002B41A0 /* FSATableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 91136821197DC0CA002B41A0 /* FSATableVC.m */; };
 		91136825197DC0F3002B41A0 /* FSAMapVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 91136824197DC0F3002B41A0 /* FSAMapVC.m */; };
 		91136828197DC202002B41A0 /* FSATVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91136827197DC202002B41A0 /* FSATVCell.m */; };
-		9113682B197DC328002B41A0 /* FSAFourSquareRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9113682A197DC328002B41A0 /* FSAFourSquareRequest.m */; };
 		9113682D197DC52D002B41A0 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9113682C197DC52D002B41A0 /* Social.framework */; };
 		9113682F197DC534002B41A0 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9113682E197DC534002B41A0 /* Accounts.framework */; };
 		91136832197DC5E0002B41A0 /* FSAAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 91136831197DC5E0002B41A0 /* FSAAnnotation.m */; };
@@ -69,8 +68,6 @@
 		91136824197DC0F3002B41A0 /* FSAMapVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSAMapVC.m; sourceTree = "<group>"; };
 		91136826197DC202002B41A0 /* FSATVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSATVCell.h; sourceTree = "<group>"; };
 		91136827197DC202002B41A0 /* FSATVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSATVCell.m; sourceTree = "<group>"; };
-		91136829197DC328002B41A0 /* FSAFourSquareRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSAFourSquareRequest.h; sourceTree = "<group>"; };
-		9113682A197DC328002B41A0 /* FSAFourSquareRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSAFourSquareRequest.m; sourceTree = "<group>"; };
 		9113682C197DC52D002B41A0 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		9113682E197DC534002B41A0 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		91136830197DC5E0002B41A0 /* FSAAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSAAnnotation.h; sourceTree = "<group>"; };
@@ -126,8 +123,6 @@
 				919112F01980641000AAB5F5 /* TAPFourSquareRequests.h */,
 				919112F11980641000AAB5F5 /* TAPFourSquareRequests.m */,
 				91136833197DCB61002B41A0 /* venue.jpeg */,
-				91136829197DC328002B41A0 /* FSAFourSquareRequest.h */,
-				9113682A197DC328002B41A0 /* FSAFourSquareRequest.m */,
 				91136823197DC0F3002B41A0 /* FSAMapVC.h */,
 				91136824197DC0F3002B41A0 /* FSAMapVC.m */,
 				91136830197DC5E0002B41A0 /* FSAAnnotation.h */,
@@ -315,7 +310,6 @@
 				916DF1631981FCEC00AEBCB6 /* STASingleton.m in Sources */,
 				91136828197DC202002B41A0 /* FSATVCell.m in Sources */,
 				91136802197DBFE0002B41A0 /* FSAAppDelegate.m in Sources */,
-				9113682B197DC328002B41A0 /* FSAFourSquareRequest.m in Sources */,
 				91136825197DC0F3002B41A0 /* FSAMapVC.m in Sources */,
 				91136822197DC0CA002B41A0 /* FSATableVC.m in Sources */,
 			);
