@@ -18,4 +18,8 @@
 
 +(NSMutableArray *)getPhotosWithVenuesBangalore;
 
++(NSMutableArray *)getPhotosWithVenuesChicago;
+
++(NSMutableArray *)getPhotosWithVenuesDallas;
+
 @end

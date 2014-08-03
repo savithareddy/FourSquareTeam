@@ -50,6 +50,20 @@
         buttonBangalore.tag = 4;
         [buttonBangalore addTarget:self action:@selector(goToTableVC:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:buttonBangalore];
+        
+        UIButton *buttonChicago = [[UIButton alloc] initWithFrame:CGRectMake(80, 390, 150, 50)];
+        buttonChicago.backgroundColor = [UIColor lightGrayColor];
+        [buttonChicago setTitle:@"Chicago" forState:UIControlStateNormal];
+        buttonChicago.tag = 5;
+        [buttonChicago addTarget:self action:@selector(goToTableVC:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:buttonChicago];
+        
+        UIButton *buttonDallas = [[UIButton alloc] initWithFrame:CGRectMake(80, 450, 150, 50)];
+        buttonDallas.backgroundColor = [UIColor darkGrayColor];
+        [buttonDallas setTitle:@"Dallas" forState:UIControlStateNormal];
+        buttonDallas.tag = 6;
+        [buttonDallas addTarget:self action:@selector(goToTableVC:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:buttonDallas];
 
         
     }
