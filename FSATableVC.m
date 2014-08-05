@@ -62,7 +62,12 @@
             itemsInfo = [TAPFourSquareRequests getPhotosWithVenuesLosAngeles];
         }else if (tagPlace == 4){
             itemsInfo = [TAPFourSquareRequests getPhotosWithVenuesBangalore];
+        } else if (tagPlace == 5){
+            itemsInfo = [TAPFourSquareRequests getPhotosWithVenuesChicago];
+        } else if (tagPlace == 6){
+            itemsInfo = [TAPFourSquareRequests getPhotosWithVenuesDallas];
         }
+    
             
         
         searchResults = [NSMutableArray arrayWithCapacity:[itemsInfo count]];
