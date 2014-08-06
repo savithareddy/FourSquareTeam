@@ -54,6 +54,10 @@
             distanceArray = [TAPFourSquareRequests getPhotosWithVenuesLosAngeles];
         }else if (tagPlace == 4){
             distanceArray = [TAPFourSquareRequests getPhotosWithVenuesBangalore];
+        } else if (tagPlace == 5){
+            distanceArray = [TAPFourSquareRequests getPhotosWithVenuesChicago];
+        } else if (tagPlace == 6){
+            distanceArray = [TAPFourSquareRequests getPhotosWithVenuesDallas];
         }
 
         
