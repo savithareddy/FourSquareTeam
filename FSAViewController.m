@@ -82,8 +82,6 @@
 {
     [super viewDidLoad];
     
-    
-   
 }
 
 -(void)viewWillAppear:(BOOL)animated{

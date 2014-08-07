@@ -37,7 +37,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-//        self.tableView.backgroundColor = [UIColor greenColor];
+        
         self.tableView.rowHeight = 70;
 //       [ self.tableView setSeparatorInset:UIEdgeInsetsMake(0, 60, 0, 8)];
 //        self.tableView.separatorColor = [UIColor blueColor];
@@ -51,8 +51,6 @@
         self.navigationItem.titleView = headerTitle;
         
         
-//        UIBarButtonItem *sortIcon = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(sortList)];
-//        self.navigationItem.rightBarButtonItem = sortIcon;
         NSInteger tagPlace = [STASingleton mainSingleton].buttonTag;
         if (tagPlace == 1) {
         itemsInfo = [TAPFourSquareRequests getPhotosWithVenues];
@@ -72,12 +70,9 @@
         
         searchResults = [NSMutableArray arrayWithCapacity:[itemsInfo count]];
         
-//        NSLog(@" All distances array is %f", [STASingleton mainSingleton].distance);
         NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES];
         NSArray *sortArray = [NSArray arrayWithObject:sortDescriptor];
         sortedArray = [itemsInfo sortedArrayUsingDescriptors:sortArray];
-//        NSLog(@"Sorted array is %@",sortedArray);
-//        NSLog(@"TableVc items are %@",itemsInfo);
 //        itemsInfo = [@[@{@"image":[UIImage imageNamed:@"venue.jpeg"],
 //                         @"name":@"HollyWood",
 //                         @"phone":@"111-222-3456",
@@ -105,18 +100,6 @@
 //                        @"distance":@"0.9 mi" }
 //                        ]mutableCopy];
         
-//        MKRoute *route = response.routes[0];
-//        distance = (route.distance)  * 0.000621371;
-//        NSLog(@"distance is %f",distance);
-//        [STASingleton mainSingleton].distance = distance;
-
-//        UISearchBar *searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
-        
-//        searchItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchButton)];
-//        searchItem.style = (searchItem.style == UIBarButtonItemStyleBordered) ? UIBarButtonItemStyleDone : UIBarButtonItemStyleBordered;
-//        isSelected = (searchItem.style == UIBarButtonItemStyleDone);
-//        self.navigationItem.rightBarButtonItem = searchItem;
-        
         UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(goToVC)];
         self.navigationItem.leftBarButtonItem = back;
 
@@ -126,12 +109,9 @@
 
 -(void) goToVC
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
-
--(void) searchButton
-{
- }
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
@@ -151,44 +131,25 @@
     return YES;
 }
 
-//-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
-//    // Tells the table data source to reload when scope bar selection changes
-//    [self filterContentForSearchText:self.searchDisplayController.searchBar.text scope:
-//     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
-//    // Return YES to cause the search result table view to be reloaded.
-//    return YES;
-//}
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = NO;
-//    [NSThread detachNewThreadSelector:@selector(fetch) toTarget:self withObject:nil];
     lmanager = [[CLLocationManager alloc] init];
     lmanager.delegate =self;
     
     lmanager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
 //    lmanager.distanceFilter = kCLDistanceFilterNone;
     [lmanager setDistanceFilter:100];
-//    NSLog(@"current location");
-//  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
     [lmanager startUpdatingLocation];
 //   [lmanager startMonitoringSignificantLocationChanges];
    
-
-//  });
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation:) name:@"newNotification" object:nil];
-    //    if (searchItem.style == isSelected) {
-    //    [UIView animateWithDuration:0.3 animations:^{
-    //        searchBar = [[UISearchBar alloc] init];
-    //        searchBar.frame =CGRectMake(0.0f, 0.0f, 280.0f, 44.0f);
-    //        searchBar.backgroundColor = [UIColor redColor];
+    
     searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
     [searchBar sizeToFit];
     searchBar.delegate = self;
     searchBar.placeholder = @"Search";
-    //    self.navigationItem.titleView= searchBar;
     
     searchDisplay = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
     
@@ -197,43 +158,17 @@
     searchDisplay.searchResultsDataSource = self;
     searchDisplay.searchResultsDelegate = self;
     searchDisplay.searchResultsTableView.rowHeight = 70;
-    //        self.tableView.delegate = self;
-    //        self.tableView.dataSource = self;
-    //        [self.tableView reloadData];
-    
     [self.tableView setTableHeaderView:searchDisplay.searchBar];
     
-    
-    //                    }];
-    //    } else{
-    //        [UIView animateWithDuration:0.3 animations:^{
-    
-    //        self.navigationItem.titleView= headerTitle;
-    //        }];
-    //    }
-
     }
 
--(void) createSearchBar
-{
-    
-    
-}
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     
     CLLocation *currentLocation = [locations lastObject];
-//    NSLog(@"current location is %lf,%lf",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNotification" object:self userInfo:[NSDictionary dictionaryWithObject:currentLocation forKey:@"newLocationResult"]];
-
     [lmanager stopUpdatingLocation];
-    }
-
-//-(void) updateLocation : (NSNotification *) notify
-//{
-//    CLLocation *currentLocation = (CLLocation *)[ [notify userInfo] valueForKey:@"newLocationResult"];
-//}
-
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -243,16 +178,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    NSLog(@"items count is %d",(int)[itemsInfo count]);
-    if (tableView == searchDisplay.searchResultsTableView) {
-//        NSLog(@"searched items count is %d",(int)[searchResults count]);
+
+    if (tableView == searchDisplay.searchResultsTableView)
+    {
         return [searchResults count];
-        
-    } else {
+    } else
+    {
     return [sortedArray count];
     }
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -262,19 +196,14 @@
         cell = [[FSATVCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-//    NSLog(@"array is %@",itemsInfo[indexPath.row]);
     
     if (tableView == searchDisplay.searchResultsTableView) {
-//            NSLog(@"searched array is %@",searchResults[indexPath.row]);
 //        cell.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.info = searchResults[indexPath.row];
     } else {
 
     cell.info = sortedArray[indexPath.row];
     }
-    
-//    double lati = [itemsInfo objectAtIndex:<#(NSUInteger)#>
-    
     return cell;
 }
 
@@ -287,17 +216,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSLog(@" %d row selected",(int)indexPath.row);
-//    if (self.searchDisplayController.active) {
-//        indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
-//        cell.info = [searchResults objectAtIndex:indexPath.row];
-//    } else {
-//        indexPath = [self.tableView indexPathForSelectedRow];
-//        recipe = [recipes objectAtIndex:indexPath.row];
-//    }
     [STASingleton mainSingleton].index = indexPath.row;
     FSAMapVC *map = [[FSAMapVC alloc] initWithNibName:nil bundle:nil];
-    
     [self.navigationController pushViewController:map animated:YES];
 }
 

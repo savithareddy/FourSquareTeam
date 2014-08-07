@@ -17,15 +17,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    
-    
-//    FSATableVC *tableVC = [[FSATableVC alloc] initWithStyle:UITableViewStylePlain];
     FSAViewController *viewVC = [[FSAViewController alloc] init];
     UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:viewVC];
    self.window.rootViewController = nc;
-//     [TAPFourSquareRequests getPhotosWithVenues];
-    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
