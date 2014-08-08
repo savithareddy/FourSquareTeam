@@ -15,8 +15,6 @@
 + (STASingleton *) mainSingleton;
 
 @property (nonatomic) NSInteger index;
-//@property (nonatomic) NSInteger colorRed;
-//@property (nonatomic) NSInteger detailColor;
 
 @property (nonatomic) CLLocationDistance distance;
 

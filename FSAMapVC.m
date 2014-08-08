@@ -67,30 +67,20 @@
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-//    [mapView removeAnnotations:mapView.annotations];
+
    currentLocation = [locations firstObject];
     
     
     
 //    CLLocationCoordinate2D coord;
 //    coord.latitude = latitude.floatValue;
-//    coord.latitude = 40;
-//    coord.longitude = -77;
 //    coord.longitude = longitude.floatValue;
 //    eventLocation = [[CLLocation alloc] initWithLatitude:coord.latitude longitude:coord.longitude];
-//    NSLog(@"event location coordinates are %d",eventLocation.coordinate);
    [lManager stopUpdatingLocation];
-//    for (CLLocation *location in locations) {
-//       annotation = [[FSAAnnotation alloc] initWithCoordinate:currentLocation.coordinate];
-//        annotation.title = @"Marker";
-//        annotation.subtitle = @"City";
-//        [mapView addAnnotation:annotation];
-//
 //        MKCoordinateRegion region = MKCoordinateRegionMake(currentLocation.coordinate, MKCoordinateSpanMake(1.0, 1.0));
 //        [mapView setRegion:region animated:YES];
-//
+
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-    
     point.coordinate = currentLocation.coordinate;
     [mapView addAnnotation:point];
     
@@ -109,34 +99,17 @@
         [coder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
             CLPlacemark *placemark = [placemarks firstObject];
            
-//            NSLog(@"current location detected");
-//            NSLog(@"placemark is %@",placemark);
-            
-//            NSString *cityState = [NSString stringWithFormat:@"%@,%@",placemark.addressDictionary[@"City"],placemark.addressDictionary[@"State"]];
-//            NSLog(@"city is %@",placemark.addressDictionary[@"City"]);
-//            NSLog(@"state is %@",placemark.addressDictionary[@"State"]);
-//            [point setTitle :placemark.addressDictionary[@"City"]];
             NSString *cityState = [NSString stringWithFormat:@"%@,%@",placemark.addressDictionary[@"City"],placemark.addressDictionary[@"State"]];
             [point setTitle :cityState];
-//            [point setSubtitle :placemark.addressDictionary[@"State"]];
-//            }
         }];
     CLGeocoder *coderMany = [[CLGeocoder alloc] init];
     [coderMany reverseGeocodeLocation:eventLocation completionHandler:^(NSArray *placemarks, NSError *error) {
         placemarkMany = [placemarks lastObject];
-//        NSLog(@"current location detected");
-//        NSLog(@"placemark is %@",placemark);
-        
-        //            NSString *cityState = [NSString stringWithFormat:@"%@,%@",placemark.addressDictionary[@"City"],placemark.addressDictionary[@"State"]];
-//        NSLog(@"city is %@",placemark.addressDictionary[@"City"]);
-//        NSLog(@"state is %@",placemark.addressDictionary[@"State"]);
-        //            [point setTitle :placemark.addressDictionary[@"City"]];
+
         NSString *cityState = [NSString stringWithFormat:@"%@,%@",placemarkMany.addressDictionary[@"City"],placemarkMany.addressDictionary[@"State"]];
         [pointMany setTitle :cityState];
       
-        //            [point setSubtitle :placemark.addressDictionary[@"State"]];
-        //            }
-    }];
+        }];
 
     MKDirectionsRequest *directionRequest = [[MKDirectionsRequest alloc] init];
     MKMapItem *source = [MKMapItem mapItemForCurrentLocation];
@@ -145,10 +118,6 @@
     directionRequest.source = source;
     directionRequest.destination = destination;
     directionRequest.transportType = MKDirectionsTransportTypeAutomobile;
-//    CLLocationDistance distance = [currentLocation distanceFromLocation:eventLocation]* 0.000621371;
-//    NSLog(@"distance is %f",distance);
-    
-//    self.venueDistance.text = [NSString stringWithFormat:@"%.2f mi",distance];
     MKDirections *directions = [[MKDirections alloc] initWithRequest:directionRequest];
     [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
         [self calculateDistance:response];
@@ -156,37 +125,15 @@
         
     }];
     
-    
-    
-    
-//    CLLocationDistance distance = [currentLocation distanceFromLocation:eventLocation];
-////    NSLog(@"distance is %lf",distance/1000);
-////    cell.venueDistance.text = [NSString stringWithFormat:@"%d" ,(int)distance/1000000];
-////    [STASingleton mainSingleton].distanceSingleton = distance/100000;
-//    
-//    MKMapPoint pointOne = MKMapPointForCoordinate(currentLocation.coordinate);
-//    MKMapPoint pointTwo = MKMapPointForCoordinate(eventLocation.coordinate);
-//    
-//    MKMapPoint *pointArray = malloc(sizeof(CLLocationCoordinate2D) * 2);
-//    pointArray[0] = pointOne;
-//    pointArray[1] = pointTwo;
-////    NSLog(@"Array is %lf", pointArray);
-//    
-//    MKPolyline *routeLine = [MKPolyline polylineWithPoints:pointArray count:2];
-//    [mapView addOverlay:routeLine];
-    
-//    }
 }
 
 -(void) calculateDistance : (MKDirectionsResponse *) response
 {
     MKRoute *route = response.routes[0];
     distance = (route.distance)  * 0.000621371;
-//    NSLog(@"distance is %f",distance);
     [STASingleton mainSingleton].distance = distance;
     
     UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-40, SCREEN_WIDTH, 40)];
-    //    footer.backgroundColor = [UIColor blueColor];
     footer.backgroundColor = [UIColor colorWithRed:0.1 green:0.3 blue:0.6 alpha:0.2];
     [self.view addSubview:footer];
     
@@ -204,18 +151,12 @@
     distanceLabel3.text = @"  mi";
     distanceLabel3.font = [UIFont fontWithName:@"Arial" size:10];
     [footer addSubview:distanceLabel3];
-    
-
-    
 }
 
 -(void) showRoute : (MKDirectionsResponse *) response
 {
-//   [mapView removeOverlays:mapView.overlays];
     for (MKRoute *route in response.routes) {
-//        MKRoute *route = response.routes.lastObject;
         [mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
-//        [mapView insertOverlay:route.polyline atIndex:0 level:MKOverlayLevelAboveRoads];
           }
 }
 
@@ -283,39 +224,25 @@
     mapView.delegate= self;
     [self.view addSubview:mapView];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(foundTap:)];
-    tap.numberOfTapsRequired = 1;
-    tap.numberOfTouchesRequired = 1;
-    [mapView addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(foundTap:)];
+//    tap.numberOfTapsRequired = 1;
+//    tap.numberOfTouchesRequired = 1;
+//    [mapView addGestureRecognizer:tap];
     
     NSInteger rowSelected = [STASingleton mainSingleton].index;
-//    NSLog(@"row selected from tableVC is %d",(int)rowSelected);
      double latitude = [[distanceArray[rowSelected] valueForKey:@"latitude"] doubleValue];
     double longitude =[[distanceArray[rowSelected] valueForKey:@"longitude"]doubleValue];
-//    NSLog(@"lat and long are %f,%f",latitude,longitude);
     eventLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
-    
-    
-    
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    
-    
+ 
 }
 
 
-
--(void) foundTap:(UITapGestureRecognizer *) tap
-{
-    CGPoint point = [tap locationInView:mapView];
-    CLLocationCoordinate2D tapPoint = [mapView convertPoint:point toCoordinateFromView:self.view];
-//    MKPointAnnotation *point1 = [[MKPointAnnotation alloc] init];
-//    point1.coordinate = tapPoint;
-//    [mapView addAnnotation:point1];
-
-}
+//-(void) foundTap:(UITapGestureRecognizer *) tap
+//{
+//    CGPoint point = [tap locationInView:mapView];
+//    CLLocationCoordinate2D tapPoint = [mapView convertPoint:point toCoordinateFromView:self.view];
+//
+//}
 
 - (void)didReceiveMemoryWarning
 {
