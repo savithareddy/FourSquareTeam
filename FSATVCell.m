@@ -56,25 +56,16 @@
 //        self.venueDistance.clipsToBounds = YES;
         [self.venueDistance setFont:[UIFont fontWithName:@"Arial" size:10]];
         self.venueDistance.textColor = [UIColor orangeColor];
-//        NSLog(@"Singleton distance is %d",(int)[STASingleton mainSingleton].distanceSingleton);
+
 //        venueDistance.text = [NSString stringWithFormat:@"%d",(int)[STASingleton mainSingleton].distanceSingleton];
        [self.contentView addSubview:self.venueDistance];
         
         venueImage1 = [[UIImageView alloc] initWithFrame:CGRectMake(300, 25, 20, 20)];
-//        venueImage1.layer.cornerRadius =;
         venueImage1.clipsToBounds = YES;
         venueImage1.image = [UIImage imageNamed:@"arrow"];
         [self.contentView addSubview:venueImage1];
 
-        
-//        latLong = [TAPFourSquareRequests getPhotosWithVenues];
-//        NSNumber *lat = [latLong valueForKey:@"latitude"];
-//         NSNumber *longi = [latLong valueForKey:@"longitude"];
-//        NSLog(@"latLong are %lf,%lf",lat,longi);
-//
-         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation:) name:@"newNotification" object:nil];
-//        CLLocationDistance distance = [currentLocation distanceFromLocation:eventLocation];
-//        NSLog(@"distance is %lf",distance/1000);
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLocation:) name:@"newNotification" object:nil];
     }
     return self;
 }
