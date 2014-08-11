@@ -45,6 +45,8 @@
         UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(goToTable)];
         self.navigationItem.leftBarButtonItem = back;
         
+        NSLog(@"distance Array is %@",[TAPFourSquareRequests getPhotosWithVenues]);
+        
         NSInteger tagPlace = [STASingleton mainSingleton].buttonTag;
         if (tagPlace == 1) {
             distanceArray = [TAPFourSquareRequests getPhotosWithVenues];
@@ -98,7 +100,7 @@
         CLGeocoder *coder = [[CLGeocoder alloc] init];
         [coder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
             CLPlacemark *placemark = [placemarks firstObject];
-           
+//            UIImage *image1 = [UIImage imageNamed:[NSString stringWithFormat:@"%@",placemark.addressDictionary[@"Image"]]];
             NSString *cityState = [NSString stringWithFormat:@"%@,%@",placemark.addressDictionary[@"City"],placemark.addressDictionary[@"State"]];
             [point setTitle :cityState];
         }];
@@ -203,9 +205,20 @@
         annoteView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"annote"];
     }else{
         annoteView.annotation = annotation;
+        
+        
     }
- 
+    annoteView.pinColor = MKPinAnnotationColorPurple;
+    annoteView.animatesDrop = YES;
+//    annoteView.image = [UIImage imageNamed:@"Blue_ball"];
     annoteView.canShowCallout=YES;
+    
+//    NSLog(@" image  string is %@",[distanceArray valueForKey:@"image"]);
+//    NSURL *url = [NSURL URLWithString:[distanceArray valueForKey:@"image"]];
+//    NSData *data = [NSData dataWithContentsOfURL:url];
+//    UIImage *image = [UIImage imageWithData:data];
+//    UIImageView *imgView = [[UIImageView alloc] initWithImage:image];
+//    annoteView.leftCalloutAccessoryView = imgView;
     return annoteView;
 }
 
