@@ -45,7 +45,7 @@
         UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(goToTable)];
         self.navigationItem.leftBarButtonItem = back;
         
-        NSLog(@"distance Array is %@",[TAPFourSquareRequests getPhotosWithVenues]);
+//        NSLog(@"distance Array is %@",[TAPFourSquareRequests getPhotosWithVenues]);
         
         NSInteger tagPlace = [STASingleton mainSingleton].buttonTag;
         if (tagPlace == 1) {
@@ -225,7 +225,7 @@
 
 -(void) goToTable
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidLoad
