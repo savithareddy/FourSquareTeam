@@ -37,7 +37,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        
+               
         self.tableView.rowHeight = 70;
 //       [ self.tableView setSeparatorInset:UIEdgeInsetsMake(0, 60, 0, 8)];
 //        self.tableView.separatorColor = [UIColor blueColor];
@@ -50,6 +50,7 @@
         [headerTitle setFont:[UIFont fontWithName:@"Chalkduster" size:25]];
         self.navigationItem.titleView = headerTitle;
         
+//        NSLog(@"distance is %@",[TAPFourSquareRequests getPhotosWithVenues]);
         
         NSInteger tagPlace = [STASingleton mainSingleton].buttonTag;
         if (tagPlace == 1) {
@@ -65,14 +66,15 @@
         } else if (tagPlace == 6){
             itemsInfo = [TAPFourSquareRequests getPhotosWithVenuesDallas];
         }
-    
+        [self saveData];
+
             
         
         searchResults = [NSMutableArray arrayWithCapacity:[itemsInfo count]];
         
-        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES];
-        NSArray *sortArray = [NSArray arrayWithObject:sortDescriptor];
-        sortedArray = [itemsInfo sortedArrayUsingDescriptors:sortArray];
+//        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES];
+//        NSArray *sortArray = [NSArray arrayWithObject:sortDescriptor];
+//        sortedArray = [itemsInfo sortedArrayUsingDescriptors:sortArray];
 //        itemsInfo = [@[@{@"image":[UIImage imageNamed:@"venue.jpeg"],
 //                         @"name":@"HollyWood",
 //                         @"phone":@"111-222-3456",
@@ -102,7 +104,8 @@
         
         UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(goToVC)];
         self.navigationItem.leftBarButtonItem = back;
-
+        [self loadListNames];
+        
      }
     return self;
 }
@@ -162,6 +165,12 @@
     
     }
 
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    
+    NSLog(@"%@",error);
+}
+
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     
@@ -184,7 +193,7 @@
         return [searchResults count];
     } else
     {
-    return [sortedArray count];
+    return [itemsInfo count];
     }
 }
 
@@ -202,7 +211,7 @@
         cell.info = searchResults[indexPath.row];
     } else {
 
-    cell.info = sortedArray[indexPath.row];
+    cell.info =itemsInfo[indexPath.row];
     }
     return cell;
 }
@@ -222,6 +231,31 @@
 }
 
 
+- (void)saveData
+{
+    NSString *path = [self listArchivePath];
+    NSLog(@" liast places is %@",path);
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:itemsInfo];
+    [data writeToFile:path options:NSDataWritingAtomic error:nil];
+}
+
+
+- (NSString *)listArchivePath
+{
+    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask,YES);
+    NSString *documentDirectory = documentDirectories[0];
+   
+    return [ documentDirectory stringByAppendingPathComponent:@"listPlaces.data"];
+    
+}
+- (void)loadListNames
+{
+    NSString *path = [self listArchivePath];
+    if([[NSFileManager defaultManager]fileExistsAtPath:path] )
+    {
+        itemsInfo = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    }
+}
 
 
 
