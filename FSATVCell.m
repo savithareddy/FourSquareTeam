@@ -32,6 +32,7 @@
         venueImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 50, 50)];
         venueImage.layer.cornerRadius = 25;
         venueImage.clipsToBounds = YES;
+        
         [self.contentView addSubview:venueImage];
         
         venueName = [[UILabel alloc] initWithFrame:CGRectMake(65, 10, 200, 15)];
@@ -81,10 +82,22 @@
 -(void) setInfo:(NSDictionary *)info
 {
     _info = info;
-    NSURL *url = [NSURL URLWithString:info[@"image"]];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    UIImage *image = [UIImage imageWithData:data];
+//    dispatch_async(dispatch_get_main_queue(), ^{
+   
+        NSURL *url = [NSURL URLWithString:info[@"image"]];
+//        NSLog(@"image in cell is %@",url);
+
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        UIImage *image = [UIImage imageWithData:data];
     venueImage.image = image;
+    if (image == nil) {
+        venueImage.image = [UIImage imageNamed:@"Flickr.png"];
+    }
+
+    
+    
+//    });
+    
     venueName.text = info[@"name"];
     venuePlace.text = info[@"place"];
 //    venuePhone.text = info[@"phone"];

@@ -28,6 +28,7 @@
 		91136834197DCB61002B41A0 /* venue.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 91136833197DCB61002B41A0 /* venue.jpeg */; };
 		91651CBB198AD8B800BD3CF6 /* FSAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91651CBA198AD8B800BD3CF6 /* FSAViewController.m */; };
 		91651CBD198ADE1600BD3CF6 /* images.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 91651CBC198ADE1600BD3CF6 /* images.jpeg */; };
+		9166D9C7199D5F88006C1F56 /* Flickr.png in Resources */ = {isa = PBXBuildFile; fileRef = 9166D9C6199D5F88006C1F56 /* Flickr.png */; };
 		916DF1601981DEFF00AEBCB6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 916DF15F1981DEFF00AEBCB6 /* CoreLocation.framework */; };
 		916DF1631981FCEC00AEBCB6 /* STASingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 916DF1621981FCEC00AEBCB6 /* STASingleton.m */; };
 		919112F21980641000AAB5F5 /* TAPFourSquareRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = 919112F11980641000AAB5F5 /* TAPFourSquareRequests.m */; };
@@ -76,6 +77,7 @@
 		91651CB9198AD8B800BD3CF6 /* FSAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSAViewController.h; sourceTree = "<group>"; };
 		91651CBA198AD8B800BD3CF6 /* FSAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSAViewController.m; sourceTree = "<group>"; };
 		91651CBC198ADE1600BD3CF6 /* images.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = images.jpeg; sourceTree = "<group>"; };
+		9166D9C6199D5F88006C1F56 /* Flickr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flickr.png; sourceTree = "<group>"; };
 		916DF15F1981DEFF00AEBCB6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		916DF1611981FCEC00AEBCB6 /* STASingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STASingleton.h; sourceTree = "<group>"; };
 		916DF1621981FCEC00AEBCB6 /* STASingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STASingleton.m; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 		911367E5197DBFE0002B41A0 = {
 			isa = PBXGroup;
 			children = (
+				9166D9C6199D5F88006C1F56 /* Flickr.png */,
 				91651CBC198ADE1600BD3CF6 /* images.jpeg */,
 				91A16AF3198A175800528164 /* arrow.png */,
 				916DF1611981FCEC00AEBCB6 /* STASingleton.h */,
@@ -284,6 +287,7 @@
 				91651CBD198ADE1600BD3CF6 /* images.jpeg in Resources */,
 				91136804197DBFE0002B41A0 /* Images.xcassets in Resources */,
 				91136834197DCB61002B41A0 /* venue.jpeg in Resources */,
+				9166D9C7199D5F88006C1F56 /* Flickr.png in Resources */,
 				91A16AF4198A175800528164 /* arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

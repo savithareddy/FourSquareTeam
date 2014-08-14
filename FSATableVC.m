@@ -15,6 +15,7 @@
 #import <MapKit/MapKit.h>
 
 
+
 @interface FSATableVC () <CLLocationManagerDelegate,MKMapViewDelegate,UISearchBarDelegate,UISearchDisplayDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @end
@@ -30,6 +31,8 @@
     UISearchBar *searchBar;
     UILabel *headerTitle;
     UISearchDisplayController *searchDisplay;
+    NSData *json;
+    NSString *jsonPath;
     
 }
 
@@ -50,11 +53,31 @@
         [headerTitle setFont:[UIFont fontWithName:@"Chalkduster" size:25]];
         self.navigationItem.titleView = headerTitle;
         
-//        NSLog(@"distance is %@",[TAPFourSquareRequests getPhotosWithVenues]);
+//        NSArray *newArray = [TAPFourSquareRequests getPhotosWithVenues];
         
+//        jsonPath=[[NSSearchPathForDirectoriesInDomains(NSUserDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingFormat:@"data.archive"];
+//        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:newArray];
+//        [ data writeToFile:jsonPath atomically:YES];
+       
+        
+//        NSLog(@"distance is %@",[TAPFourSquareRequests getPhotosWithVenues]);
+//        [self loadListNames];
         NSInteger tagPlace = [STASingleton mainSingleton].buttonTag;
         if (tagPlace == 1) {
-        itemsInfo = [TAPFourSquareRequests getPhotosWithVenues];
+            itemsInfo = [TAPFourSquareRequests getPhotosWithVenues];
+//            NSLog(@" itemsInfo is %@", itemsInfo);
+//            NSData *jsonData = [[NSUserDefaults standardUserDefaults] valueForKey: @"data.archive"];
+//                itemsInfo= [NSKeyedUnarchiver unarchiveObjectWithData:jsonData];
+//                NSLog(@" itemsinfo data is %@",itemsInfo);
+//            
+//           if([[NSFileManager defaultManager]fileExistsAtPath:jsonPath] )
+//           {
+//        itemsInfo = [NSKeyedUnarchiver unarchiveObjectWithFile:jsonPath];
+//        NSLog(@"itemsInfo here is %@",itemsInfo);
+//    }
+
+
+//           }
         }else if (tagPlace == 2){
             itemsInfo = [TAPFourSquareRequests getPhotosWithVenuesNewYork];
         }else if (tagPlace == 3){
@@ -66,7 +89,24 @@
         } else if (tagPlace == 6){
             itemsInfo = [TAPFourSquareRequests getPhotosWithVenuesDallas];
         }
-        [self saveData];
+//        [self saveData];
+
+//        if ([NSJSONSerialization isValidJSONObject:itemsInfo])
+//        {
+//            // Serialize the dictionary
+//            json = [NSJSONSerialization dataWithJSONObject:itemsInfo options:NSJSONWritingPrettyPrinted error:nil];
+//            
+//            // If no errors, let's view the JSON
+//            if (json != nil )
+//            {
+//                NSString *jsonString = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+//                
+//                NSLog(@"JSON: %@", jsonString);
+//                
+////                [[NSUserDefaults standardUserDefaults] setObject:json forKey:@"myData"];
+//            
+//            }
+//        }
 
             
         
@@ -104,11 +144,48 @@
         
         UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(goToVC)];
         self.navigationItem.leftBarButtonItem = back;
-        [self loadListNames];
+        
         
      }
     return self;
 }
+
+
+//-(void)viewWillAppear:(BOOL)animated
+//{
+//    }
+//
+//-(void)viewWillDisappear:(BOOL)animated
+//{
+//    NSLog(@"view disappear");
+//    NSArray *myArray = itemsInfo;
+//    [[NSUserDefaults standardUserDefaults] setValue:myArray forKey:@"testArray"];
+//}
+//
+//-(void)saveJsonWithData:(NSData *)data{
+//    
+//    NSString *jsonPath=[[NSSearchPathForDirectoriesInDomains(NSUserDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingFormat:@"/data.json"];
+//    
+//    [data writeToFile:jsonPath atomically:YES];
+//    
+//}
+
+//-(NSData *)getSavedJsonData{
+//    NSString *jsonPath=[[NSSearchPathForDirectoriesInDomains(NSUserDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingFormat:@"/data.json"];
+//    
+//    return [NSData dataWithContentsOfFile:jsonPath];
+//    
+//    
+//}
+//
+//- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+//{
+//    
+//    [self saveJsonWithData:json];
+//}
+//
+
+
 
 -(void) goToVC
 {
@@ -121,7 +198,7 @@
     [searchResults removeAllObjects];
     NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", searchText];
     searchResults = [NSMutableArray arrayWithArray:[itemsInfo filteredArrayUsingPredicate:resultPredicate]];
-    NSLog(@"search results array has %@",searchResults);
+//    NSLog(@"search results array has %@",searchResults);
 }
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
@@ -137,6 +214,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+//     [self loadListNames];
     self.navigationController.navigationBarHidden = NO;
     lmanager = [[CLLocationManager alloc] init];
     lmanager.delegate =self;
@@ -163,13 +241,30 @@
     searchDisplay.searchResultsTableView.rowHeight = 70;
     [self.tableView setTableHeaderView:searchDisplay.searchBar];
     
-    }
+//    NSLog(@"test ");
+//    NSUserDefaults *userdef = [NSUserDefaults standardUserDefaults];
+//    NSArray *myArrayOne = [userdef arrayForKey:@"testArray"];
+//    itemsInfo = myArrayOne;
+//    NSLog(@" itemsInfo is %@",itemsInfo);
 
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    
-    NSLog(@"%@",error);
-}
+//    [self loadListNames];
+       }
+
+
+//- (void)viewWillDisappear:(BOOL)animated
+//{
+//    [super viewWillDisappear:animated];
+////    [self saveData];
+//    
+//}
+
+
+
+//- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+//{
+//    
+//    NSLog(@"%@",error);
+//}
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
@@ -210,10 +305,19 @@
 //        cell.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.info = searchResults[indexPath.row];
     } else {
+//[self saveData];
+        cell.info =itemsInfo[indexPath.row];
 
-    cell.info =itemsInfo[indexPath.row];
+//       if (itemsInfo == nil) {
+//           NSLog(@"itemsInfo is empty ");
+//           [self getSavedJsonData];
+//           NSData *jsonData = [[NSUserDefaults standardUserDefaults] valueForKey: @"myData"];
+//        NSArray *myArray = [NSKeyedUnarchiver unarchiveObjectWithData:jsonData];
+//        cell.info = myArray[indexPath.row];
+//        }
     }
     return cell;
+    
 }
 
 - (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView {
@@ -225,37 +329,48 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//     [self saveData];
     [STASingleton mainSingleton].index = indexPath.row;
     FSAMapVC *map = [[FSAMapVC alloc] initWithNibName:nil bundle:nil];
     [self.navigationController pushViewController:map animated:YES];
-}
-
-
-- (void)saveData
-{
-    NSString *path = [self listArchivePath];
-    NSLog(@" liast places is %@",path);
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:itemsInfo];
-    [data writeToFile:path options:NSDataWritingAtomic error:nil];
-}
-
-
-- (NSString *)listArchivePath
-{
-    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask,YES);
-    NSString *documentDirectory = documentDirectories[0];
    
-    return [ documentDirectory stringByAppendingPathComponent:@"listPlaces.data"];
-    
 }
-- (void)loadListNames
-{
-    NSString *path = [self listArchivePath];
-    if([[NSFileManager defaultManager]fileExistsAtPath:path] )
-    {
-        itemsInfo = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-    }
-}
+
+
+
+
+
+//- (void)saveData
+//{
+//    NSString *path = [self listArchivePath];
+//    NSLog(@" liast places is %@",path);
+//    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:itemsInfo];
+//    [data writeToFile:path options:NSDataWritingAtomic error:nil];
+//}
+//
+//
+//- (NSString *)listArchivePath
+//{
+//    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask,YES);
+//    NSString *documentDirectory = documentDirectories[0];
+//   
+//    return [ documentDirectory stringByAppendingPathComponent:@"listPlaces.data"];
+//    
+//}
+//- (void)loadListNames
+//{
+//    NSString *path = [self listArchivePath];
+//    if([[NSFileManager defaultManager]fileExistsAtPath:path] )
+//    {
+//        itemsInfo = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+//        NSLog(@"itemsInfo here is %@",itemsInfo);
+//    }
+//}
+
+
+
+
+
 
 
 

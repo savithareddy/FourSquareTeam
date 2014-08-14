@@ -20,6 +20,6 @@
 
 @property (nonatomic) NSInteger buttonTag;
 
-
+@property (nonatomic) NSData *data;
 
 @end

@@ -9,6 +9,7 @@
 //#define ID @"40a55d80f964a52020f31ee3"
 //#define ID  @"U5LGPWWMKMNBT4VZ3TCKKRHC2R3LHVTWGN3NEGJWY2M1D15P"
 #import "TAPFourSquareRequests.h"
+#import "STASingleton.h"
 
 @implementation TAPFourSquareRequests
 
@@ -18,7 +19,8 @@
     
     NSString *locationURL = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?ll=33.7,-84.39&oauth_token=UQGRMZSKDL2DZIGQ430EW0AHPJ1S30ZEQBCOWDXRQ5AYE5KB&v=20140723"];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL]];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60.0f];
     NSData *resonseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSDictionary *fsInfo = [NSJSONSerialization JSONObjectWithData:resonseData options:0 error:nil];
 //    NSLog(@"DIctionary is %@",fsInfo);
@@ -28,6 +30,7 @@
         NSString *photos2 = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"] [0] [@"icon"] [@"suffix"];
         NSString *dimension = @"bg_88";
         NSString *joinString=[NSString stringWithFormat:@"%@%@%@",photos1,dimension,photos2];
+//        NSLog(@" icons offline are %@",joinString);
 //        [photos addObject:joinString];
         
         NSString *name = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"name"];
@@ -55,9 +58,11 @@
 //        NSLog(@"Dictionary is %@",dict);
         }
 //    NSLog(@" photos %@",photos);
+   
     return photos;
 
 }
+
 
 +(NSMutableArray *)getPhotosWithVenuesNewYork
 {
@@ -65,7 +70,8 @@
     
     NSString *locationURL = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?ll=40.71,-74&oauth_token=UQGRMZSKDL2DZIGQ430EW0AHPJ1S30ZEQBCOWDXRQ5AYE5KB&v=20140723"];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL]];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60.0f];
     NSData *resonseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSDictionary *fsInfo = [NSJSONSerialization JSONObjectWithData:resonseData options:0 error:nil];
     //    NSLog(@"DIctionary is %@",fsInfo);
@@ -112,7 +118,8 @@
     
     NSString *locationURL = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?ll=34.05,-118.25&oauth_token=UQGRMZSKDL2DZIGQ430EW0AHPJ1S30ZEQBCOWDXRQ5AYE5KB&v=20140723"];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL]];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60.0f];
     NSData *resonseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSDictionary *fsInfo = [NSJSONSerialization JSONObjectWithData:resonseData options:0 error:nil];
     //    NSLog(@"DIctionary is %@",fsInfo);
@@ -159,7 +166,8 @@
     
     NSString *locationURL = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?ll=12.97,77.57&oauth_token=UQGRMZSKDL2DZIGQ430EW0AHPJ1S30ZEQBCOWDXRQ5AYE5KB&v=20140723"];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL]];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60.0f];
     NSData *resonseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSDictionary *fsInfo = [NSJSONSerialization JSONObjectWithData:resonseData options:0 error:nil];
     //    NSLog(@"DIctionary is %@",fsInfo);
@@ -206,7 +214,8 @@
     
     NSString *locationURL = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?ll=41.88,-87.63&oauth_token=UQGRMZSKDL2DZIGQ430EW0AHPJ1S30ZEQBCOWDXRQ5AYE5KB&v=20140723"];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL]];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60.0f];
     NSData *resonseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSDictionary *fsInfo = [NSJSONSerialization JSONObjectWithData:resonseData options:0 error:nil];
     //    NSLog(@"DIctionary is %@",fsInfo);
@@ -253,7 +262,8 @@
     
     NSString *locationURL = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/explore?ll=32.78,-96.8&oauth_token=UQGRMZSKDL2DZIGQ430EW0AHPJ1S30ZEQBCOWDXRQ5AYE5KB&v=20140723"];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL]];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:locationURL] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:60.0f];
     NSData *resonseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSDictionary *fsInfo = [NSJSONSerialization JSONObjectWithData:resonseData options:0 error:nil];
     //    NSLog(@"DIctionary is %@",fsInfo);
@@ -293,6 +303,8 @@
     return photos;
     
 }
+
+
 
 
 

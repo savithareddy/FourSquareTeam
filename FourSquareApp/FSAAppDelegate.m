@@ -21,6 +21,11 @@
     UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:viewVC];
    self.window.rootViewController = nc;
     self.window.backgroundColor = [UIColor whiteColor];
+    //for data persistence// 2MB of memory and 100MB of disk space 
+    NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:2 * 1024 * 1024
+                                                         diskCapacity:100 * 1024 * 1024
+                                                             diskPath:nil];
+    [NSURLCache setSharedURLCache:URLCache];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -68,7 +73,9 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    
+//    BOOL success = [[FSATableVC s]]
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 

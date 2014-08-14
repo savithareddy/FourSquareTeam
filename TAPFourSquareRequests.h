@@ -22,4 +22,6 @@
 
 +(NSMutableArray *)getPhotosWithVenuesDallas;
 
+//@property (nonatomic) NSData *data;
+
 @end
