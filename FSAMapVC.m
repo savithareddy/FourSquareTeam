@@ -136,22 +136,25 @@
     [STASingleton mainSingleton].distance = distance;
     
     UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-40, SCREEN_WIDTH, 40)];
-    footer.backgroundColor = [UIColor colorWithRed:0.1 green:0.3 blue:0.6 alpha:0.2];
+//    footer.backgroundColor = [UIColor colorWithRed:0.1 green:0.3 blue:0.6 alpha:0.2];
     [self.view addSubview:footer];
     
-    UILabel *distanceLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(140, 10, 100, 30)];
-    distanceLabel1.text = @"Travel Distance is :";
-    distanceLabel1.font = [UIFont fontWithName:@"Arial" size:10];
+    UILabel *distanceLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(75, 10, 160, 30)];
+    distanceLabel1.text = @"Distance from current location :";
+    distanceLabel1.font = [UIFont fontWithName:@"Arial" size:11];
+    distanceLabel1.textColor = [UIColor blueColor];
     [footer addSubview:distanceLabel1];
     
     UILabel *distanceLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(230, 10, 60, 30)];
     distanceLabel2.text = [NSString stringWithFormat:@"%.2f",distance];
-    distanceLabel2.font = [UIFont fontWithName:@"Arial" size:10];
+    distanceLabel2.font = [UIFont fontWithName:@"Arial" size:11];
+    distanceLabel2.textColor = [UIColor blueColor];
     [footer addSubview:distanceLabel2];
     
     UILabel *distanceLabel3 = [[UILabel alloc] initWithFrame:CGRectMake(260, 10, 30, 30)];
     distanceLabel3.text = @"  mi";
-    distanceLabel3.font = [UIFont fontWithName:@"Arial" size:10];
+    distanceLabel3.font = [UIFont fontWithName:@"Arial" size:11];
+    distanceLabel3.textColor = [UIColor blueColor];
     [footer addSubview:distanceLabel3];
 }
 
