@@ -196,7 +196,8 @@
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
 {
     [searchResults removeAllObjects];
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"name contains[c] %@", searchText];
+    NSString *filter = @"name contains[c] %@ || category contains[c] %@";
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:filter, searchText];
     searchResults = [NSMutableArray arrayWithArray:[itemsInfo filteredArrayUsingPredicate:resultPredicate]];
 //    NSLog(@"search results array has %@",searchResults);
 }

@@ -43,7 +43,11 @@
 //        NSString *phone = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"contact"] [@"formattedPhone"];
         NSNumber *distance = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"distance"];
         NSNumber *rating = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"rating"];
-        NSString *open = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"hours"] [@"isOpen"];
+//        NSString *open = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"hours"] [@"isOpen"];
+        BOOL openTf = [fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"hours"] [@"isOpen"] boolValue];
+        NSNumber *value = [NSNumber numberWithBool:openTf];
+        NSString *open = [value stringValue];
+        NSString *category= fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"][0][@"name"];
 //       [photos addObject:name];
 //        [photos addObject:place];
 //        [photos addObject:phone];
@@ -58,10 +62,11 @@
         [dict setObject:placeLong forKey:@"longitude"];
         [dict setObject:rating forKey:@"rating"];
         [dict setObject:open forKey:@"hoursOpen"];
+        [dict setObject:category forKey:@"category"];
         [photos addObject:dict];
 //        NSLog(@"Dictionary is %@",dict);
         }
-        NSLog(@" photos %@",photos);
+//        NSLog(@" photos %@",photos);
    
     return photos;
 
@@ -97,7 +102,11 @@
         //        NSString *phone = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"contact"] [@"formattedPhone"];
         NSNumber *distance = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"distance"];
         NSNumber *rating = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"rating"];
-        NSString *open = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"hours"] [@"isOpen"];
+//        NSString *open = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"hours"] [@"isOpen"];
+        BOOL openTf = [fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"hours"] [@"isOpen"] boolValue];
+        NSNumber *value = [NSNumber numberWithBool:openTf];
+        NSString *open = [value stringValue];
+ NSString *category= fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"][0][@"name"];
         //       [photos addObject:name];
         //        [photos addObject:place];
         //        [photos addObject:phone];
@@ -112,6 +121,7 @@
         [dict setObject:placeLong forKey:@"longitude"];
         [dict setObject:rating forKey:@"rating"];
         [dict setObject:open forKey:@"hoursOpen"];
+        [dict setObject:category forKey:@"category"];
         [photos addObject:dict];
         //        NSLog(@"Dictionary is %@",dict);
     }
@@ -149,7 +159,11 @@
         //        NSString *phone = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"contact"] [@"formattedPhone"];
         NSNumber *distance = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"distance"];
         NSNumber *rating = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"rating"];
-        NSString *open = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"hours"] [@"isOpen"];
+//        NSString *open = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"hours"] [@"isOpen"];
+        BOOL openTf = [fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"hours"] [@"isOpen"] boolValue];
+        NSNumber *value = [NSNumber numberWithBool:openTf];
+        NSString *open = [value stringValue];
+ NSString *category= fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"][0][@"name"];
         //       [photos addObject:name];
         //        [photos addObject:place];
         //        [photos addObject:phone];
@@ -164,6 +178,7 @@
         [dict setObject:placeLong forKey:@"longitude"];
         [dict setObject:rating forKey:@"rating"];
         [dict setObject:open forKey:@"hoursOpen"];
+        [dict setObject:category forKey:@"category"];
         [photos addObject:dict];
         //        NSLog(@"Dictionary is %@",dict);
     }
@@ -184,7 +199,7 @@
     NSDictionary *fsInfo = [NSJSONSerialization JSONObjectWithData:resonseData options:0 error:nil];
     //    NSLog(@"DIctionary is %@",fsInfo);
     
-    for (int index = 0 ; index < 10; index ++) {
+    for (int index = 0 ; index < 5; index ++) {
         NSString *photos1 = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"] [0] [@"icon"] [@"prefix"];
         NSString *photos2 = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"] [0] [@"icon"] [@"suffix"];
         NSString *dimension = @"bg_88";
@@ -201,7 +216,10 @@
         //        NSString *phone = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"contact"] [@"formattedPhone"];
         NSNumber *distance = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"distance"];
         NSNumber *rating = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"rating"];
-        NSString *open = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"hours"] [@"isOpen"];
+        BOOL openTf = [fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"hours"] [@"isOpen"] boolValue];
+        NSNumber *value = [NSNumber numberWithBool:openTf];
+        NSString *open = [value stringValue];
+         NSString *category= fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"][0][@"name"];
         //       [photos addObject:name];
         //        [photos addObject:place];
         //        [photos addObject:phone];
@@ -216,10 +234,12 @@
         [dict setObject:placeLong forKey:@"longitude"];
         [dict setObject:rating forKey:@"rating"];
         [dict setObject:open forKey:@"hoursOpen"];
+        [dict setObject:category forKey:@"category"];
+//        [dict setValue:[NSNumber numberWithBool:openTf] forKey:@"hoursOpen"];
         [photos addObject:dict];
         //        NSLog(@"Dictionary is %@",dict);
     }
-    //    NSLog(@" photos %@",photos);
+        NSLog(@" photos %@",photos);
     return photos;
     
 }
@@ -253,7 +273,11 @@
         //        NSString *phone = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"contact"] [@"formattedPhone"];
         NSNumber *distance = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"distance"];
         NSNumber *rating = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"rating"];
-        NSString *open = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"hours"] [@"isOpen"];
+//        NSString *open = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"hours"] [@"isOpen"];
+        BOOL openTf = [fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"hours"] [@"isOpen"] boolValue];
+        NSNumber *value = [NSNumber numberWithBool:openTf];
+        NSString *open = [value stringValue];
+ NSString *category= fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"][0][@"name"];
         //       [photos addObject:name];
         //        [photos addObject:place];
         //        [photos addObject:phone];
@@ -268,6 +292,7 @@
         [dict setObject:placeLong forKey:@"longitude"];
         [dict setObject:rating forKey:@"rating"];
         [dict setObject:open forKey:@"hoursOpen"];
+        [dict setObject:category forKey:@"category"];
         [photos addObject:dict];
         //        NSLog(@"Dictionary is %@",dict);
     }
@@ -305,7 +330,11 @@
         //        NSString *phone = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"contact"] [@"formattedPhone"];
         NSNumber *distance = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"location"] [@"distance"];
         NSNumber *rating = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"rating"];
-        NSString *open = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"hours"] [@"isOpen"];
+//        NSString *open = fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"hours"] [@"isOpen"];
+        BOOL openTf = [fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"hours"] [@"isOpen"] boolValue];
+        NSNumber *value = [NSNumber numberWithBool:openTf];
+        NSString *open = [value stringValue];
+ NSString *category= fsInfo[@"response"][@"groups"][0][@"items"] [index] [@"venue"][@"categories"][0][@"name"];
         //       [photos addObject:name];
         //        [photos addObject:place];
         //        [photos addObject:phone];
@@ -320,6 +349,7 @@
         [dict setObject:placeLong forKey:@"longitude"];
         [dict setObject:rating forKey:@"rating"];
         [dict setObject:open forKey:@"hoursOpen"];
+        [dict setObject:category forKey:@"category"];
         [photos addObject:dict];
         //        NSLog(@"Dictionary is %@",dict);
     }

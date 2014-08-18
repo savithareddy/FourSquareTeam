@@ -24,4 +24,7 @@
 
 //@property (nonatomic) NSData *data;
 
+static inline NSString* NSStringFromBOOL(BOOL aBool) {
+    return aBool? @"OPEN" : @"CLOSED"; }
+
 @end

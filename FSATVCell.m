@@ -25,6 +25,8 @@
 //    CLLocation *currentLocation;
 //    CLLocation *eventLocation;
     UIImageView *venueImage1;
+    NSNumber *intOpen;
+    UILabel *category;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -32,7 +34,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         venueImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 50, 50)];
-        venueImage.layer.cornerRadius = 25;
+        venueImage.layer.cornerRadius = 27.5;
         venueImage.clipsToBounds = YES;
         [self.contentView addSubview:venueImage];
         
@@ -41,10 +43,17 @@
         venueName.textColor = [UIColor blueColor];
         [self.contentView addSubview:venueName];
         
-        venuePlace = [[UILabel alloc] initWithFrame:CGRectMake(65, 30, 180, 12)];
+        venuePlace = [[UILabel alloc] initWithFrame:CGRectMake(65, 27, 180, 12)];
         [venuePlace setFont:[UIFont fontWithName:@"Arial" size:9]];
 //        venuePlace.adjustsFontSizeToFitWidth=YES;
         [self.contentView addSubview:venuePlace];
+        
+        category = [[UILabel alloc] initWithFrame:CGRectMake(65, 41, 180, 12)];
+        [category setFont:[UIFont fontWithName:@"Arial" size:9]];
+        category.textColor = [UIColor blackColor];
+        //        venuePlace.adjustsFontSizeToFitWidth=YES;
+        [self.contentView addSubview:category];
+
         
 //        venuePhone = [[UILabel alloc] initWithFrame:CGRectMake(65, 52, 150, 10)];
 //        [venuePhone setFont:[UIFont fontWithName:@"Arial" size:10]];
@@ -60,12 +69,12 @@
 //        venueDistance.text = [NSString stringWithFormat:@"%d",(int)[STASingleton mainSingleton].distanceSingleton];
 //       [self.contentView addSubview:self.venueDistance];
         
-        rating = [[UILabel alloc] initWithFrame:CGRectMake(65, 50, 100, 10)];
+        rating = [[UILabel alloc] initWithFrame:CGRectMake(65, 55, 100, 10)];
         [rating setFont:[UIFont fontWithName:@"Arial" size:10]];
         rating.textColor = [UIColor orangeColor];
         [self.contentView addSubview:rating];
         
-        open = [[UILabel alloc] initWithFrame:CGRectMake(170, 50, 100, 10)];
+        open = [[UILabel alloc] initWithFrame:CGRectMake(170, 55, 100, 10)];
         [open setFont:[UIFont fontWithName:@"Arial" size:10]];
         open.textColor = [UIColor orangeColor];
         [self.contentView addSubview:open];
@@ -106,18 +115,21 @@
     NSNumberFormatter *format = [[NSNumberFormatter alloc] init];
     [format setMaximumFractionDigits:1];
     [format setMinimumFractionDigits:1];
-    NSString *ratingString = [NSString stringWithFormat:@"%@ /10",[format stringFromNumber:info[@"rating"]]];
+    NSString *ratingString = [NSString stringWithFormat:@"Rating : %@ /10",[format stringFromNumber:info[@"rating"]]];
     rating.text = ratingString ;
     
-    int value = (int) info[@"hoursOpen"];
-    NSString *b ;
-    if (!(value == 0)) {
-        b= @"Now : CLOSED";
-    }else{
-        b=@"Now : OPEN";
-    }
-    open.text = b;
+    intOpen =  info[@"hoursOpen"];
+    NSLog(@" int %@",intOpen);
+    open.text = [NSString stringWithFormat:@"Now : %@",[intOpen boolValue] ? @"OPEN": @"CLOSED"];
     
+    category.text = info[@"category"];
+//    if ([b isEqualToString:0]) {
+//        b= @"Now : CLOSED";
+//    }else{
+//        b=@"Now : OPEN";
+//    }
+//    open.text = b;
+//    open.text = info[@"hoursOpen"];
 //    venuePhone.text = info[@"phone"];
 //   NSUInteger intDist = (int)info[@"distance"];
 //    NSLog(@" distance is %d",(int)intDist);
@@ -143,6 +155,10 @@
 //    self.venueDistance.text = [NSString stringWithFormat:@"%.2f mi",distance];
 //}
 
+- (NSString *)boolValueString {
+    // if this contains BOOL value
+    return [intOpen boolValue] ? @"YES" : @"NO";
+}
 
 - (void)awakeFromNib
 {
