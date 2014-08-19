@@ -19,13 +19,13 @@
 
 @interface FSAMapVC () <MKMapViewDelegate,CLLocationManagerDelegate>
 
+@property (nonatomic) MKMapView *mapView;
 @end
 
 @implementation FSAMapVC
 {
     CLLocationManager *lManager;
-    MKMapView *mapView;
-    FSAAnnotation *annotation;
+    FSAAnnotation *annoteFile;
     CLLocation *currentLocation;
     NSMutableArray *distanceArray;
     CLLocation *eventLocation;
@@ -42,8 +42,10 @@
         lManager = [[CLLocationManager alloc] init];
         lManager.delegate = self;
         [lManager startUpdatingLocation];
+        
         UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(goToTable)];
         self.navigationItem.leftBarButtonItem = back;
+        
         
 //        NSLog(@"distance Array is %@",[TAPFourSquareRequests getPhotosWithVenues]);
         
@@ -72,45 +74,51 @@
 
    currentLocation = [locations firstObject];
     
-    
+     [lManager stopUpdatingLocation];
     
 //    CLLocationCoordinate2D coord;
 //    coord.latitude = latitude.floatValue;
 //    coord.longitude = longitude.floatValue;
 //    eventLocation = [[CLLocation alloc] initWithLatitude:coord.latitude longitude:coord.longitude];
-   [lManager stopUpdatingLocation];
+  
 //        MKCoordinateRegion region = MKCoordinateRegionMake(currentLocation.coordinate, MKCoordinateSpanMake(1.0, 1.0));
 //        [mapView setRegion:region animated:YES];
 
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
     point.coordinate = currentLocation.coordinate;
-    [mapView addAnnotation:point];
+    [self.mapView addAnnotation:point];
     
-//    MKCoordinateRegion region2 = MKCoordinateRegionMake(eventLocation.coord, MKCoordinateSpanMake(1.0, 1.0));
-//    [mapView setRegion:region2 animated:YES];
+    
     
     MKPointAnnotation *pointMany = [[MKPointAnnotation alloc] init];
     pointMany.coordinate = eventLocation.coordinate;
-    [mapView addAnnotation:pointMany];
+    NSInteger rowSelected = [STASingleton mainSingleton].index;
+    NSLog(@" name is %@",[distanceArray[rowSelected] valueForKey:@"name"]);
+    [pointMany setTitle: [NSString stringWithString:[distanceArray[rowSelected] valueForKey:@"name"] ]];
+        [self.mapView addAnnotation:pointMany];
+    
+    
+//    MKCoordinateRegion region2 = MKCoordinateRegionMake(eventLocation.coordinate, MKCoordinateSpanMake(10.0, 10.0));
+//    [self.mapView setRegion:region2 animated:YES];
     
     NSArray *annotationArray = [NSArray arrayWithObjects:point,pointMany, nil];
-    [mapView showAnnotations:annotationArray animated:YES];
+    [self.mapView showAnnotations:annotationArray animated:YES];
 
     
-        CLGeocoder *coder = [[CLGeocoder alloc] init];
-        [coder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-            CLPlacemark *placemark = [placemarks firstObject];
-//            UIImage *image1 = [UIImage imageNamed:[NSString stringWithFormat:@"%@",placemark.addressDictionary[@"Image"]]];
-            NSString *cityState = [NSString stringWithFormat:@"%@,%@",placemark.addressDictionary[@"City"],placemark.addressDictionary[@"State"]];
-            [point setTitle :cityState];
-        }];
+//        CLGeocoder *coder = [[CLGeocoder alloc] init];
+//        [coder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+//            CLPlacemark *placemark = [placemarks firstObject];
+////            UIImage *image1 = [UIImage imageNamed:[NSString stringWithFormat:@"%@",placemark.addressDictionary[@"Image"]]];
+//            NSString *cityState = [NSString stringWithFormat:@"%@,%@",placemark.addressDictionary[@"City"],placemark.addressDictionary[@"State"]];
+//            [point setTitle :cityState];
+//        }];
     CLGeocoder *coderMany = [[CLGeocoder alloc] init];
     [coderMany reverseGeocodeLocation:eventLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+         NSLog(@" placemark array is %@",placemarks);
         placemarkMany = [placemarks lastObject];
-
-        NSString *cityState = [NSString stringWithFormat:@"%@,%@",placemarkMany.addressDictionary[@"City"],placemarkMany.addressDictionary[@"State"]];
-        [pointMany setTitle :cityState];
-      
+       
+//        NSString *cityState = [NSString stringWithFormat:@"%@,%@",placemarkMany.addressDictionary[@"City"],placemarkMany.addressDictionary[@"State"]];
+//        [pointMany setTitle :cityState];
         }];
 
     MKDirectionsRequest *directionRequest = [[MKDirectionsRequest alloc] init];
@@ -128,6 +136,8 @@
     }];
     
 }
+
+
 
 -(void) calculateDistance : (MKDirectionsResponse *) response
 {
@@ -161,7 +171,7 @@
 -(void) showRoute : (MKDirectionsResponse *) response
 {
     for (MKRoute *route in response.routes) {
-        [mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
+        [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
           }
 }
 
@@ -179,51 +189,118 @@
 }
 
 
-//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id)annotation {
-//    //7
-////    if([annotation isKindOfClass:[MKUserLocation class]])
-////        return nil;
-////    
-////    //8
-////    static NSString *identifier = @"myAnnotation";
-//    MKPinAnnotationView * annotationView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"annote"];
-//    if (!annotationView)
+//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id)annotation
+//{
+//    if([annotation isKindOfClass:[MKUserLocation class]])
+//            return nil;
+//
+//    if ([annotation isKindOfClass:[MKPointAnnotation class]])
 //    {
-//        //9
-//        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"annote"];
-//        annotationView.pinColor = MKPinAnnotationColorPurple;
-//        annotationView.animatesDrop = YES;
-//        annotationView.canShowCallout = YES;
-//    }else {
-//        annotationView.annotation = annotation;
+//    MKAnnotationView * pinView = (MKAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"CustomPinAnnotationView"];
+//    if (!pinView)
+//    {
+//       pinView= [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"CustomPinAnnotationView"];
+//        pinView.canShowCallout = YES;
+//        pinView.animatesDrop = YES;
+//        pinView.image = [UIImage imageNamed:@"FlickrSmall"];
+////        UIImage *image = [UIImage imageNamed:@"FlickrSmall"];
+////        CGRect resizeRect;
+////        resizeRect.size.width = 20;
+////        resizeRect.size.height = 30;
+////        resizeRect.origin = (CGPoint) {0.0f,0.0f};
+////        UIGraphicsBeginImageContext(resizeRect.size);
+////        [image drawInRect:resizeRect];
+//        
+////        NSLog(@"pinView.frame.size = %@, pinView.image.size = %@",
+////              NSStringFromCGSize(pinView.frame.size),
+////              NSStringFromCGSize(pinView.image.size));
+////        pinView.image.size.width = 32;
+////        pinView.frame.size = NSStringFromCGSize(CGSizeMake(32, 39));
+//        pinView.calloutOffset = CGPointMake(0, 32);
+////        pinView.pinColor = MKPinAnnotationColorPurple;
+////        pinView.animatesDrop = YES;
+//       }else {
+//        pinView.annotation = annotation;
 //    }
-//    annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-//    return annotationView;
+//        return pinView;
+////    annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+//    }
+//    return nil;
 //}
 
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
+    if([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;
+    
+//    if ([annotation isKindOfClass:[MKPointAnnotation class]])
+//        {
+
+
     MKPinAnnotationView *annoteView= (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"annote"];
     if (annoteView == nil) {
         annoteView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"annote"];
+        annoteView.pinColor = MKPinAnnotationColorPurple;
+        annoteView.animatesDrop = YES;
+//        annoteView.image = [UIImage imageNamed:@"pin"];
+
+        annoteView.canShowCallout=YES;
+        NSInteger rowSelected = [STASingleton mainSingleton].index;
+        NSURL *url = [NSURL URLWithString:[distanceArray[rowSelected] valueForKey:@"image"]];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        UIImage *image = [UIImage imageWithData:data];
+//        NSLog(@" distance array is %@",distanceArray);
+//        NSLog(@"row selected is %d",(int)rowSelected);
+//        UIImage *image = [UIImage imageNamed:[distanceArray[rowSelected] valueForKey:@"image"]];
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        imageView.contentMode  = UIViewContentModeScaleAspectFill;
+      imageView.clipsToBounds = YES;
+        imageView.frame = CGRectMake(0, 0, 25, 25);
+//        NSLog(@" image is %@",[distanceArray[rowSelected] valueForKey:@"image"]);
+        annoteView.leftCalloutAccessoryView = imageView;
+        
+//        UIView *buttonView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+        UIButton *rightButton = [[UIButton alloc]init];
+        rightButton.frame =  CGRectMake(0, 0, 25, 25);
+        UIImage *btnImage = [UIImage imageNamed:@"arrow.png"];
+        [rightButton setBackgroundImage:btnImage forState:UIControlStateNormal];
+        [rightButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+//        annoteView.rightCalloutAccessoryView = rightButton;
+
+//        [buttonView addSubview:rightButton];
+        
+        annoteView.rightCalloutAccessoryView = rightButton;
+//        annoteView.calloutOffset = CGPointMake(0, 0);
     }else{
-        annoteView.annotation = annotation;
-        
-        
+       annoteView.annotation = annotation;
+//        
+//        
     }
-    annoteView.pinColor = MKPinAnnotationColorPurple;
-    annoteView.animatesDrop = YES;
-//    annoteView.image = [UIImage imageNamed:@"Blue_ball"];
-    annoteView.canShowCallout=YES;
-    
-//    NSLog(@" image  string is %@",[distanceArray valueForKey:@"image"]);
-//    NSURL *url = [NSURL URLWithString:[distanceArray valueForKey:@"image"]];
-//    NSData *data = [NSData dataWithContentsOfURL:url];
-//    UIImage *image = [UIImage imageWithData:data];
-//    UIImageView *imgView = [[UIImageView alloc] initWithImage:image];
-//    annoteView.leftCalloutAccessoryView = imgView;
-    return annoteView;
+//    
+//    
+////    NSLog(@" image  string is %@",[distanceArray valueForKey:@"image"]);
+////    NSURL *url = [NSURL URLWithString:[distanceArray valueForKey:@"image"]];
+////    NSData *data = [NSData dataWithContentsOfURL:url];
+////    UIImage *image = [UIImage imageWithData:data];
+////    UIImageView *imgView = [[UIImageView alloc] initWithImage:image];
+////    annoteView.leftCalloutAccessoryView = imgView;
+             return annoteView;
+//        }
+//    return nil;
 }
+    
+    
+//- (void)mapView:(MKMapView *)mapView
+//didAddAnnotationViews:(NSArray *)annotationViews
+//{
+//    for (MKAnnotationView *annView in annotationViews)
+//    {
+//        CGRect endFrame = annView.frame;
+//        annView.frame = CGRectOffset(endFrame, 0, -500);
+//        [UIView animateWithDuration:0.5
+//                         animations:^{ annView.frame = endFrame; }];
+//    }
+//}
 
 
 -(void) goToTable
@@ -235,10 +312,13 @@
 {
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = NO;
+    self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-40)];
+    self.mapView.delegate= self;
+    self.mapView.showsUserLocation = YES;
 
-    mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-40)];
-    mapView.delegate= self;
-    [self.view addSubview:mapView];
+    self.mapView.userTrackingMode = YES;
+//    [self.mapView setCenterCoordinate:currentLocation.coordinate animated:YES];
+    [self.view addSubview:self.mapView];
     
 //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(foundTap:)];
 //    tap.numberOfTapsRequired = 1;
@@ -251,6 +331,8 @@
     eventLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
  
 }
+
+
 
 
 //-(void) foundTap:(UITapGestureRecognizer *) tap

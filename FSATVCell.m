@@ -119,7 +119,7 @@
     rating.text = ratingString ;
     
     intOpen =  info[@"hoursOpen"];
-    NSLog(@" int %@",intOpen);
+//    NSLog(@" int %@",intOpen);
     open.text = [NSString stringWithFormat:@"Now : %@",[intOpen boolValue] ? @"OPEN": @"CLOSED"];
     
     category.text = info[@"category"];
