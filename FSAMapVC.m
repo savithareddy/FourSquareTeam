@@ -16,6 +16,8 @@
 #import "TAPFourSquareRequests.h"
 #import "STASingleton.h"
 #import "FSATVCell.h"
+#import "FSAStepsVC.h"
+#import "FSAStepsTableVC.h"
 
 @interface FSAMapVC () <MKMapViewDelegate,CLLocationManagerDelegate>
 
@@ -32,7 +34,8 @@
     FSATVCell *cell;
     CLPlacemark *placemarkMany;
     CLLocationDistance distance;
- 
+    NSMutableArray *stepsArray;
+    MKRoute *currentRoute;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -114,7 +117,7 @@
 //        }];
     CLGeocoder *coderMany = [[CLGeocoder alloc] init];
     [coderMany reverseGeocodeLocation:eventLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-         NSLog(@" placemark array is %@",placemarks);
+//         NSLog(@" placemark array is %@",placemarks);
         placemarkMany = [placemarks lastObject];
        
 //        NSString *cityState = [NSString stringWithFormat:@"%@,%@",placemarkMany.addressDictionary[@"City"],placemarkMany.addressDictionary[@"State"]];
@@ -141,8 +144,8 @@
 
 -(void) calculateDistance : (MKDirectionsResponse *) response
 {
-    MKRoute *route = response.routes[0];
-    distance = (route.distance)  * 0.000621371;
+    currentRoute  = response.routes[0];
+    distance = (currentRoute.distance)  * 0.000621371;
     [STASingleton mainSingleton].distance = distance;
     
     UIView *footer = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-40, SCREEN_WIDTH, 40)];
@@ -171,8 +174,19 @@
 -(void) showRoute : (MKDirectionsResponse *) response
 {
     for (MKRoute *route in response.routes) {
+//        [STASingleton mainSingleton].routeSteps = [response.routes firstObject];
         [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
-          }
+        
+//    for (MKRouteStep *step in route.steps){
+////        stepsArray = [[NSMutableArray alloc] initWithObjects:step.instructions, nil];
+////        stepsArray = [NSMutableArray arrayWithObject: step.instructions];
+////        NSString *nextStep = step.instructions;
+////        [stepsArray addObject:nextStep];
+//        [STASingleton mainSingleton].routeSteps = step.instructions;
+//          NSLog(@"the steps are %@",[STASingleton mainSingleton].routeSteps);
+//       
+//    }
+    }
 }
 
 -(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
@@ -187,6 +201,8 @@
     }
    else return nil;
 }
+
+
 
 
 //- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id)annotation
@@ -255,16 +271,17 @@
             UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
         imageView.contentMode  = UIViewContentModeScaleAspectFill;
       imageView.clipsToBounds = YES;
-        imageView.frame = CGRectMake(0, 0, 25, 25);
+        imageView.frame = CGRectMake(0, 0, 40 , 40);
 //        NSLog(@" image is %@",[distanceArray[rowSelected] valueForKey:@"image"]);
         annoteView.leftCalloutAccessoryView = imageView;
         
 //        UIView *buttonView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
-        UIButton *rightButton = [[UIButton alloc]init];
+        UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         rightButton.frame =  CGRectMake(0, 0, 25, 25);
-        UIImage *btnImage = [UIImage imageNamed:@"arrow.png"];
-        [rightButton setBackgroundImage:btnImage forState:UIControlStateNormal];
-        [rightButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+        
+//        UIImage *btnImage = [UIImage imageNamed:@"arrow.png"];
+//        [rightButton setBackgroundImage:btnImage forState:UIControlStateNormal];
+        [rightButton addTarget:self action:@selector(detailVC) forControlEvents:UIControlEventTouchUpInside];
 //        annoteView.rightCalloutAccessoryView = rightButton;
 
 //        [buttonView addSubview:rightButton];
@@ -302,6 +319,52 @@
 //    }
 //}
 
+-(void) detailVC
+{
+    NSLog(@"Working here ");
+    FSAStepsTableVC *steps = [[FSAStepsTableVC alloc] initWithStyle:UITableViewStylePlain];
+    
+    NSLog(@"does not work here");
+//    for (MKRouteStep *step in currentRoute.steps) {
+//        NSString *newString = step.instructions;
+//        NSUInteger totalSteps= [currentRoute.steps count];
+    
+         NSMutableArray *arrayStepsMap = [[NSMutableArray alloc]init];
+    NSMutableDictionary *dictStepsMap = [[NSMutableDictionary alloc] init];
+//    CLLocationDistance *distanceTable;
+//        for (int i=0; i<totalSteps ; i++) {
+           for (MKRouteStep *step in currentRoute.steps) {
+//            [arrayStepsMap insertObject:step.instructions atIndex:i];
+//               [dictStepsMap setObject:step.instructions forKey:@"textStep"];
+//             NSNumber *numDistance = [NSNumber numberWithInt:step.distance];
+//               [dictStepsMap setObject:numDistance forKey:@"distance"];
+//               [arrayStepsMap addObject:dictStepsMap];
+                 [arrayStepsMap addObject:step.instructions];
+//        }
+        }
+    
+        NSLog(@"array here is %@",arrayStepsMap);
+    steps.mapTableArray = arrayStepsMap;
+//     for (MKRouteStep *step in currentRoute.steps) {
+//         NSNumber *numDistance = [NSNumber numberWithInt:step.distance];
+//    [steps.mapTableDistanceArray addObject:numDistance];
+//         NSLog(@"array here is %@",numDistance);
+//          NSLog(@"array here is %@",steps.mapTableDistanceArray);
+//     }
+//    }
+//    NSArray *stepsRoute = currentRoute.steps;
+//    NSLog(@"total steps count is %d",(int)[stepsRoute count]);
+//    
+//    [stepsRoute enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//        NSString *newText =[obj instructions];
+//        [steps.mapTableArray addObject:newText];
+//        NSLog(@"steps array is %@",steps.mapTableArray);
+////        [STASingleton mainSingleton].routeTextSteps = newText;
+////        NSLog(@"text of steps is %@",[STASingleton mainSingleton].routeTextSteps);
+//    }];
+    
+    [self.navigationController pushViewController:steps animated:YES];
+}
 
 -(void) goToTable
 {

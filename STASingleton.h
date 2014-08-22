@@ -22,4 +22,6 @@
 
 @property (nonatomic) NSData *data;
 
+@property (nonatomic) NSString *routeTextSteps;
+
 @end
