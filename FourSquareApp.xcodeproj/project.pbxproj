@@ -32,7 +32,6 @@
 		916DF1601981DEFF00AEBCB6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 916DF15F1981DEFF00AEBCB6 /* CoreLocation.framework */; };
 		916DF1631981FCEC00AEBCB6 /* STASingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 916DF1621981FCEC00AEBCB6 /* STASingleton.m */; };
 		919112F21980641000AAB5F5 /* TAPFourSquareRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = 919112F11980641000AAB5F5 /* TAPFourSquareRequests.m */; };
-		919FA5D319A54681008EE67E /* FSAStepsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 919FA5D219A54680008EE67E /* FSAStepsVC.m */; };
 		919FA5D619A553B4008EE67E /* FSAStepsTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 919FA5D519A553B4008EE67E /* FSAStepsTableVC.m */; };
 		91A16AF4198A175800528164 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 91A16AF3198A175800528164 /* arrow.png */; };
 		91BB986419A3D20F0072139E /* FlickrSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 91BB986319A3D20F0072139E /* FlickrSmall.png */; };
@@ -88,8 +87,6 @@
 		916DF1621981FCEC00AEBCB6 /* STASingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STASingleton.m; sourceTree = "<group>"; };
 		919112F01980641000AAB5F5 /* TAPFourSquareRequests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAPFourSquareRequests.h; sourceTree = "<group>"; };
 		919112F11980641000AAB5F5 /* TAPFourSquareRequests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAPFourSquareRequests.m; sourceTree = "<group>"; };
-		919FA5D119A54680008EE67E /* FSAStepsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSAStepsVC.h; sourceTree = "<group>"; };
-		919FA5D219A54680008EE67E /* FSAStepsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSAStepsVC.m; sourceTree = "<group>"; };
 		919FA5D419A553B4008EE67E /* FSAStepsTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSAStepsTableVC.h; sourceTree = "<group>"; };
 		919FA5D519A553B4008EE67E /* FSAStepsTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSAStepsTableVC.m; sourceTree = "<group>"; };
 		91A16AF3198A175800528164 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
@@ -132,8 +129,6 @@
 			children = (
 				919FA5D419A553B4008EE67E /* FSAStepsTableVC.h */,
 				919FA5D519A553B4008EE67E /* FSAStepsTableVC.m */,
-				919FA5D119A54680008EE67E /* FSAStepsVC.h */,
-				919FA5D219A54680008EE67E /* FSAStepsVC.m */,
 				91BB986719A3D9840072139E /* pin.png */,
 				91BB986519A3D8C00072139E /* pin2.png */,
 				91BB986319A3D20F0072139E /* FlickrSmall.png */,
@@ -335,7 +330,6 @@
 				91651CBB198AD8B800BD3CF6 /* FSAViewController.m in Sources */,
 				916DF1631981FCEC00AEBCB6 /* STASingleton.m in Sources */,
 				919FA5D619A553B4008EE67E /* FSAStepsTableVC.m in Sources */,
-				919FA5D319A54681008EE67E /* FSAStepsVC.m in Sources */,
 				91136828197DC202002B41A0 /* FSATVCell.m in Sources */,
 				91136802197DBFE0002B41A0 /* FSAAppDelegate.m in Sources */,
 				91136825197DC0F3002B41A0 /* FSAMapVC.m in Sources */,
